@@ -1,8 +1,8 @@
-happy feet
-Rubin Peci
-Tina Wong
-Vincent Lin
-William Lu
+Team happy feet
+Rubin Peci   - Attorney General
+Tina Wong    - Prime Minister
+Vincent Lin  - Secretary of State
+William Lu   - Chief of Staff
 
 pd 07
 ---------------------
@@ -10,6 +10,10 @@ ArRESTed Development
 Your team has been contracted to showcase your company’s proficiency with frameworks and RESTful APIs.
 
 You have secured creative freedom of expressions, constrained only by the bounds of scholarly discourse
+
+A website that displays the latest news articles, weather forecasts, and a quote/fact of the day.
+This will serve as a homepage that will open whenever the user opens a new browser window/tab.
+The articles and forecast will be chosen by the user when they make their account and can be changed whenever they please.
 
  ______   ______   __   __   __       ______   _______
 /_____/\ /_____/\ /_/\ /_/\ /_/\     /_____/\ /______/\
@@ -23,6 +27,11 @@ You have secured creative freedom of expressions, constrained only by the bounds
 
 BUGS, WHY, AND HOW
 ==========================
+- Serbia still exists
 
 --------------------------------------------------------------
-
+everyone: 2018-11-19 12:57
+- Work on the design doc
+- Establish that we are using Foundation because the teammates working on the front-end
+  are more comfortable with it.
+- Establish which APIs the project is using
