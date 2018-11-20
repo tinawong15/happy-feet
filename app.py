@@ -1,4 +1,5 @@
 from flask import Flask
+from passlib.hash import sha256_crypt
 
 app = Flask(__name__)
 
