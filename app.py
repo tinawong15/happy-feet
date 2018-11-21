@@ -7,4 +7,5 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
-    return "<center><h1> UwU News </h1></center>"
+    articles = news.list_article_titles(news.top_headlines_by_keyword('bitcoin'))
+    return render_template('home.html', list = articles) 
