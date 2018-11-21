@@ -30,6 +30,17 @@ BUGS, WHY, AND HOW
 - Serbia still exists
 
 --------------------------------------------------------------
+
+Rubin P: 2018-11-21 01:52
+- Work on the util/ folder
+	- Make a news.py file that works with the News API
+	- Include relevant attribution
+	- Make basic template that utilizes Jinja to test news.py (everything works as expected)
+
+
+everyone: 2018-11-20 13:00
+- Work more on the design doc, and everyone did their part
+- Further establish group roles in regards to back and front end development
 everyone: 2018-11-19 12:57
 - Work on the design doc
 - Establish that we are using Foundation because the teammates working on the front-end
