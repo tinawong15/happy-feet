@@ -4,6 +4,12 @@
 	</head>
 
 	<body>
+		<form action="/">
+			<input type="text" name="search" placeholder="News Search">
+			<br>
+			<input type="submit" name="submit" placeholder="Search">
+		</form>
+
 		{% for key, value in data.items() %}
 		<center> <a href='{{ value }}'>{{ key }}</a> </center>
 		{% endfor %}
