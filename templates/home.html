@@ -4,8 +4,8 @@
 	</head>
 
 	<body>
-		{% for article in list %}
-			<center> {{ article }} </center>
+		{% for key, value in data.items() %}
+		<center> <a href='{{ value }}'>{{ key }}</a> </center>
 		{% endfor %}
 	</body>
 </html>
