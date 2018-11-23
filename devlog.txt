@@ -45,5 +45,5 @@ rubinP -- 2018-11-21 01:52
 	- Include relevant attribution
 	- Make basic template that utilizes Jinja to test news.py (everything works as expected)
 
-tinaW -- 2018-11-23 14:48
-- Updated design doc
+tinaW -- 2018-11-23 15:33
+- Updated design doc with improvements to front end site map
