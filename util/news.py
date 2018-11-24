@@ -1,4 +1,4 @@
-import json, urllib.request
+import json, urllib
 
 API_LINK = 'https://newsapi.org/v2/top-headlines?'
 API_KEY = "a842f08935ec4c4f8cbfa0ca729fc2c1"
@@ -88,5 +88,3 @@ def list_article_imgs(raw_json):
 #print(list_article_desc(top_headlines_by_keyword('bitcoin')))
 #print(list_article_urls(top_headlines_by_keyword('bitcoin')))
 #print(list_article_imgs(top_headlines_by_keyword('bitcoin')))
-
-

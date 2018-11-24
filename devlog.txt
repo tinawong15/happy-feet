@@ -48,5 +48,9 @@ rubinP -- 2018-11-21 01:52
 tinaW -- 2018-11-23 15:33
 - Updated design doc with improvements to front end site map, including arrows and a clarification of what pages users can see even if they are not logged in.
 
+williamL -- 2018-11-23 21:35
+- Added link to Foundation in templates/home.html and made it more aesthetic
+- Added the random quote feature on home page
+
 tinaW -- 2018-11-24 01:49
 - Updated design doc with improvements to component map, including adding Foundation as a component and expanding on the database components

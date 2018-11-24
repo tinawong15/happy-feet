@@ -1,5 +1,5 @@
-from passlib.hash import sha256_crypt
-from util import news
+# from passlib.hash import sha256_crypt
+from util import news, fortune
 
 from flask import Flask, render_template, request
 
@@ -18,10 +18,15 @@ def home():
     while (i < len(articles)):
         dictionary[articles[i]] = links[i]
         i += 1
-    
     #for debugging
     #print(dictionary)
+    quote = fortune.getQuote()
     if dictionary:
-        return render_template('home.html', data = dictionary) 
+        data = dictionary
     else:
-        return render_template('home.html', data = { 'No results found! Try again' : '/' } ) 
+        data = { 'No results found! Try again' : '/' }
+    return render_template('home.html', q = quote[0], c = quote[1], d = data)
+
+if __name__ == "__main__":
+    app.debug = True
+    app.run();

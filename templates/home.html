@@ -1,17 +1,75 @@
 <!DOCTYPE HTML>
 	<head>
 		<title> UwU News </title>
+		<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.5.0/css/foundation.css">
 	</head>
 
 	<body>
-		<form action="/">
-			<input type="text" name="search" placeholder="News Search">
-			<br>
-			<input type="submit" name="submit" placeholder="Search">
-		</form>
+		<h1 align="center"> UwU News </h2>
 
-		{% for key, value in data.items() %}
-		<center> <a href='{{ value }}'>{{ key }}</a> </center>
-		{% endfor %}
+			<div class="grid-x grid-padding-x">
+				<div class="large-12 cell">
+
+
+					<div class="top-bar">
+
+						<div class="top-bar-left">
+							<ul class="menu">
+								<li>
+									<a href="/login">Login</a>
+								</li>
+								<li>
+									<a href="/register">Register</a>
+								</li>
+							</ul>
+						</div>
+
+						<div class="top-bar-right">
+
+							<form action="/">
+								<ul class="menu">
+									<li>
+										<input type="text" name="search" placeholder="News Search">
+									</li>
+									<li>
+										<button type="submit" class="button" name="button">Search</button>
+									</li>
+								</ul>
+							</form>
+
+						</div>
+
+					</div>
+					<br>
+
+					<div class="grid-x grid-padding-x">
+
+						<div class="small-3 cell">
+							<h2>Weather</h2>
+						</div>
+
+						<div class="medium-6 cell">
+
+							{% for key, value in d.items() %}
+							<div class="primary callout">
+								<a href="{{ value }}">{{ key }}</a>
+							</div>
+							{% endfor %}
+						</div>
+
+						<div class="small-3 cell">
+							<h4>Fortune says,</h4>
+							<blockquote>
+								{{q}}
+								<cite>
+									{{c}}
+								</cite>
+							</blockquote>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
 	</body>
 </html>
