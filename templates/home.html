@@ -19,7 +19,7 @@
 									<a href="/login">Login</a>
 								</li>
 								<li>
-									<a href="/register">Register</a>
+									<a href="/signup">Sign up</a>
 								</li>
 							</ul>
 						</div>
@@ -40,7 +40,14 @@
 						</div>
 
 					</div>
-					<br>
+					<hr>
+
+					{% if hasMsg %}
+					<div class="{{type}} callout">
+						{{msg}}
+					</div>
+					<hr>
+					{% endif %}
 
 					<div class="grid-x grid-padding-x">
 

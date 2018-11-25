@@ -1,9 +1,11 @@
 # from passlib.hash import sha256_crypt
 from util import news, fortune
-
-from flask import Flask, render_template, request
+import os
+from flask import Flask, render_template, request, session
 
 app = Flask(__name__)
+
+app.secret_key = os.urandom(32)
 
 @app.route('/')
 def home():
@@ -25,8 +27,33 @@ def home():
         data = dictionary
     else:
         data = { 'No results found! Try again' : '/' }
-    return render_template('home.html', q = quote[0], c = quote[1], d = data)
+    return render_template('home.html', hm = False, q = quote[0], c = quote[1], d = data)
+
+@app.route('/signup')
+def signup():
+    return render_template('signup.html', hasMsg = False)
+
+@app.route('/signupauth', methods = ['POST'])
+def signupauth():
+    session['username'] = request.form['username']
+    session['password0'] = request.form['password0']
+    session['password1'] = request.form['password1']
+    hasMsg = True
+    type = 'alert'
+    message = ''
+    if len(session['username']) < 5:
+        message = "You have entered an invalid username. Please try again."
+        return render_template('signup.html', hm = hasMsg, msg = message, t = type)
+    elif len(session['password0']) < 5:
+        message = "You have entered an invalid password. Please try again."
+        return render_template('signup.html', hm = hasMsg, msg = message, t = type)
+    elif session['password0'] != session['password1']:
+        message = "Passwords do not match. Please try again."
+        return render_template('signup.html', hm = hasMsg, msg = message, t = type)
+    else:
+        return render_template('signupauth.html')
+
 
 if __name__ == "__main__":
     app.debug = True
-    app.run();
+    app.run()
