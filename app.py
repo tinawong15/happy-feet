@@ -54,10 +54,9 @@ def signupauth():
     else:
         return render_template('signupauth.html')
 
-'''@app.route('/login')
+@app.route('/login')
 def login():
     return render_template('login.html', hasMsg = False)
-'''
 
 if __name__ == "__main__":
     app.debug = True
