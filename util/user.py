@@ -6,9 +6,10 @@ DB_FILE = "database.db"
 
 # creates table called users
 def createTable():
+    ''' This function creates Users table in database with column names id, username, and password.'''
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
-    c.execute("CREATE TABLE users (user TEXT, password TEXT, question TEXT, answer TEXT)")
+    c.execute("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, user TEXT, password TEXT, question TEXT, answer TEXT)")
     db.commit()
     db.close()
 
