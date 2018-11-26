@@ -22,6 +22,7 @@ def home():
         i += 1
     #for debugging
     #print(dictionary)
+
     quote = fortune.getQuote()
     if dictionary:
         data = dictionary
