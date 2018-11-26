@@ -1,5 +1,5 @@
 # from passlib.hash import sha256_crypt
-from util import news, fortune
+from util import news, fortune, user
 import os
 from flask import Flask, render_template, request, session
 
@@ -57,6 +57,21 @@ def signupauth():
 @app.route('/login')
 def login():
     return render_template('login.html', hasMsg = False)
+
+@app.route('/loginauth', methods = ['POST'])
+def loginauth():
+    username = request.form['username']
+    password = request.form['password']
+    hasMsg = True
+    type = 'alert'
+    message = ''
+    if user.authenticate(username, password):
+        return redirect('/')
+    elif user.authenticate(username, password) == False:
+        message = "New database who dis?"
+        return render_template('login.html', hm = hasMsg, msg = message, t = type)
+    return render_template('signupauth.html')
+    
 
 if __name__ == "__main__":
     app.debug = True
