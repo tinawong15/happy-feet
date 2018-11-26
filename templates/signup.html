@@ -6,10 +6,10 @@
 
 {% block content %}
     <h1 align="center"> SIGN UP PAGE </h1>
-    <hr>
     <div class="grid-x grid-padding-x">
       <div class="small-2 cell"></div>
       <div class="large-8 cell">
+	<hr>
         {% if hm %}
         <div class="{{t}} callout">
           <h4 style="text-align: center;">{{msg}}</h4>
@@ -24,6 +24,9 @@
                 <input type = "text" name = "username" placeholder="Username">
                 <input type = "password" name = "password0" placeholder="Password">
                 <input type = "password" name = "password1" placeholder="Verify Password">
+                <p>Please enter a security question and answer in case you forget your password.</p>
+                <input type = "text" name = "question" placeholder="Question">
+                <input type = "text" name = "answer" placeholder="Answer">
                 <button type="submit" class="button" name="sub">Submit</button>
               </form>
             </div>
@@ -33,6 +36,7 @@
             <div class="warning callout">
               <h4>Already have an account?</h4>
               <h4>Login <a href="/login">here</a> !</h4>
+              <br><br><br><br><br><br><br><br><br><br><br><br><br>
             </div>
           </div>
           <div class="small-2 cell"></div>
