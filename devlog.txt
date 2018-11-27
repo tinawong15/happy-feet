@@ -78,3 +78,8 @@ williamL -- 2018-11-26 13:10
 
 williamL -- 2018-11-26 21:30
 - Updated front ends to make more aesthetically pleasing
+
+vincentL -- 2018-11-27 13:11
+- Fixed an issue with registering users
+- users can log in and redirecting works
+
