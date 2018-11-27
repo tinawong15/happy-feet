@@ -83,8 +83,11 @@ vincentL -- 2018-11-27 13:11
 - Fixed an issue with registering users
 - users can log in and redirecting works
 
-rubinP -- 2018-11-27 01:18
+rubinP -- 2018-11-27 13:18
 - Work on the util/ folder
 	- Created forecast.py that can grab basic forecast data based off longitude and latitude
 	- Researched possible location APIs that could make it possible to convert
 	  location searches into latitude and longitude data
+
+williamL -- 2018-11-27 13:25
+- Edited authentication process
