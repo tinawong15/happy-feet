@@ -46,7 +46,7 @@ rubinP -- 2018-11-21 01:52
 	- Make basic template that utilizes Jinja to test news.py (everything works as expected)
 
 tinaW -- 2018-11-23 15:33
-- Updated design doc with improvements to uneven work distribution
+- Updated design doc to address uneven work distribution
 - Updated design doc with improvements to front end site map, including:
   - adding arrows
   - adding a clarification of what pages users can see even if they are not logged in, such as the home page
@@ -82,4 +82,3 @@ williamL -- 2018-11-26 21:30
 vincentL -- 2018-11-27 13:11
 - Fixed an issue with registering users
 - users can log in and redirecting works
-
