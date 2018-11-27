@@ -71,3 +71,9 @@ tinaW -- 2018-11-26 00:53
 tinaW -- 2018-11-26 12:46
 - Added login route and basic login template
 - Updated database-Python connection
+
+williamL -- 2018-11-26 13:10
+- Added util/user.py that handles user authentications
+
+williamL -- 2018-11-26 21:30
+- Updated front ends to make more aesthetically pleasing
