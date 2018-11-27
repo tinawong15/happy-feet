@@ -7,6 +7,8 @@ app = Flask(__name__)
 
 app.secret_key = os.urandom(32)
 
+loggedin = False
+
 @app.route('/')
 def home():
     keyword = request.args.get('search', '')
@@ -28,7 +30,10 @@ def home():
         data = dictionary
     else:
         data = { 'No results found! Try again' : '/' }
-    return render_template('home.html', hm = False, q = quote[0], c = quote[1], d = data)
+    if loggedin:
+        return 0
+    else:
+        return render_template('home.html', hm = False, q = quote[0], c = quote[1], d = data)
 
 @app.route('/signup')
 def signup():
@@ -67,12 +72,13 @@ def loginauth():
     type = 'alert'
     message = ''
     if user.authenticate(username, password):
+        loggedin = True
+        session['username'] = username
         return redirect('/')
-    elif user.authenticate(username, password) == False:
-        message = "New database who dis?"
+    else:
+        message = "Invalid Username Password Combination"
         return render_template('login.html', hm = hasMsg, msg = message, t = type)
-    return render_template('signupauth.html')
-    
+
 
 if __name__ == "__main__":
     app.debug = True

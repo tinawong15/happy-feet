@@ -82,3 +82,6 @@ williamL -- 2018-11-26 21:30
 vincentL -- 2018-11-27 13:11
 - Fixed an issue with registering users
 - users can log in and redirecting works
+
+williamL -- 2018-11-27 13:25
+- Edited authentication process
