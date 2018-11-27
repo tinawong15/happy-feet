@@ -5,42 +5,43 @@
 {% endblock %}
 
 {% block content %}
-		<h1 align="center"> UwU News </h2>
+	<div id="wrapper">
 
-			<div class="grid-x grid-padding-x">
-				<div class="large-12 cell">
+		<div class="top-bar is-at-top">
 
+			<div class="top-bar-left">
+				<ul class="menu">
+					<li>
+						<a href="/login">Login</a>
+					</li>
+					<li>
+						<a href="/signup">Sign up</a>
+					</li>
+				</ul>
+			</div>
 
-					<div class="top-bar">
+			<div class="top-bar-right">
 
-						<div class="top-bar-left">
-							<ul class="menu">
-								<li>
-									<a href="/login">Login</a>
-								</li>
-								<li>
-									<a href="/signup">Sign up</a>
-								</li>
-							</ul>
-						</div>
+				<form action="/">
+					<ul class="menu">
+						<li>
+							<input type="text" name="search" placeholder="News Search">
+						</li>
+						<li>
+							<button type="submit" class="button round" name="button">Search</button>
+						</li>
+					</ul>
+				</form>
 
-						<div class="top-bar-right">
+			</div>
 
-							<form action="/">
-								<ul class="menu">
-									<li>
-										<input type="text" name="search" placeholder="News Search">
-									</li>
-									<li>
-										<button type="submit" class="button" name="button">Search</button>
-									</li>
-								</ul>
-							</form>
+		</div>
 
-						</div>
-
-					</div>
-					<hr>
+		<div class="grid-x grid-padding-x">
+			<div class="large-12 cell">
+				<br><br><br>
+				<h1 align="center"> UwU News </h1>
+				<hr>
 
 					{% if hasMsg %}
 					<div class="{{type}} callout">
@@ -76,4 +77,5 @@
 					</div>
 				</div>
 			</div>
+		</div>
 {% endblock %}

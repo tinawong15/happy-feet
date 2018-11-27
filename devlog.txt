@@ -72,3 +72,9 @@ tinaW -- 2018-11-26 12:46
 - Added login route and basic login template
 - Updated database-Python connection
 - Updated design doc with new estimated deadlines for assignments
+
+williamL -- 2018-11-26 13:10
+- Added util/user.py that handles user authentications
+
+williamL -- 2018-11-26 21:30
+- Updated front ends to make more aesthetically pleasing
