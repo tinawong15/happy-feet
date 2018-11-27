@@ -1,7 +1,7 @@
 # from passlib.hash import sha256_crypt
 from util import news, fortune, user
 import os
-from flask import Flask, render_template, request, session
+from flask import Flask, render_template, request, session, redirect
 
 app = Flask(__name__)
 
@@ -36,22 +36,23 @@ def signup():
 
 @app.route('/signupauth', methods = ['POST'])
 def signupauth():
-    session['username'] = request.form['username']
-    session['password0'] = request.form['password0']
-    session['password1'] = request.form['password1']
+    usern = request.form['username']
+    pswd0 = request.form['password0']
+    pswd1 = request.form['password1']
     hasMsg = True
     type = 'alert'
     message = ''
-    if len(session['username']) < 5:
+    if len(usern) < 5:
         message = "You have entered an invalid username. Please try again."
         return render_template('signup.html', hm = hasMsg, msg = message, t = type)
-    elif len(session['password0']) < 5:
+    elif len(pswd0) < 5:
         message = "You have entered an invalid password. Please try again."
         return render_template('signup.html', hm = hasMsg, msg = message, t = type)
-    elif session['password0'] != session['password1']:
+    elif pswd0 != pswd1:
         message = "Passwords do not match. Please try again."
         return render_template('signup.html', hm = hasMsg, msg = message, t = type)
     else:
+        user.register(usern, pswd0, request.form['question'], request.form['answer'])
         return render_template('signupauth.html')
 
 @app.route('/login')
