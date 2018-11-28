@@ -57,6 +57,14 @@ def get_future_daily_summary(lat, lon, days):
     data = get_json(lat, lon)
     return data['daily']['data'][days]['summary']
 
+def get_future_daily_temp(lat, lon, days):
+    data = get_json(lat, lon)
+    return data['daily']['data'][days]['temperature']
+
+def get_future_daily_apparent_temp(lat, lon, days):
+    data = get_json(lat, lon)
+    return data['daily']['data'][days]['apparentTemperature']
+
 #print(get_temp(42.3601,-71.0589))
 #print(get_minutely_summary(42.3601,-71.0589))
 #print(get_daily_summary(42.3601,-71.0589))

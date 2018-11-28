@@ -1,4 +1,4 @@
-import json, urllib
+import json, urllib.request
 
 API_LINK = "http://yerkee.com/api/fortune"
 

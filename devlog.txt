@@ -99,3 +99,9 @@ williamL -- 2018-11-27 20:40
 tinaW -- 2018-11-28 12:29
 - Added logout feature
 - Add route to home on navbar
+
+rubinP -- 2018-11-28 12:42
+- Work on the util/ folder
+	- Finish up necessary features in forecast.py
+	- Implement ipstack API to get latitude and longitude of user
+	  based off of IP, seems accurate enough for now
