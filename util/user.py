@@ -25,6 +25,8 @@ def register(usr, psw, q, a):
             return False
     params = (usr, psw, q, a)
     c.execute("INSERT INTO users VALUES (?, ?, ?, ?)", params)
+    c.execute("CREATE TABLE " + usr + "_tags (tag TEXT)")
+    c.execute("CREATE TABLE " + usr + "_locations (location TEXT)")
     db.commit()
     db.close()
     return True
@@ -74,23 +76,21 @@ def checkAnswer(usr, ans):
 def getTags(usr):
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
-    data = c.execute("SELECT * FROM tags")
+    data = c.execute("SELECT * FROM " + usr + "_tags")
     l = [];
     for row in data:
-        if row[0] == usr:
-            l.append(row[1])
+        l.append(row[0])
     db.close()
     return l
 
 # given a user, returns a list of all the bookmarked cities for weather
-def getCities(usr):
+def getLocations(usr):
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
-    data = c.execute("SELECT * FROM cities")
+    data = c.execute("SELECT * FROM " + usr + "_locations")
     l = [];
     for row in data:
-        if row[0] == usr:
-            l.append(row[1])
+        l.append(row[0])
     db.close()
     return l
 
@@ -106,7 +106,7 @@ def getStats(usr):
             d['question'] = row[2]
             d['answer'] = row[3]
             d['tags'] = getTags(usr)
-            d['cities'] = getCities(usr)
+            d['locations'] = getLocations(usr)
             db.close()
             return d
 
