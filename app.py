@@ -27,6 +27,7 @@ def home():
         data = dictionary
     else:
         data = { 'No results found! Try again' : '/' }
+    #TODO find way to get real IP address
     if 'username' in session:
         return render_template('home.html', hm = False, q = quote[0], c = quote[1], d = data, li = True, u = session['username'], s = session['stats'], ip_address = request.environ.get('HTTP_X_REAL_IP', request.remote_addr))
     else:

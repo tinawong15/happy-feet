@@ -105,3 +105,5 @@ rubinP -- 2018-11-28 12:42
 	- Finish up necessary features in forecast.py
 	- Implement ipstack API to get latitude and longitude of user
 	  based off of IP, seems accurate enough for now
+- Implement feature to show IP address on website
+	- Not accurate, will have to update - left a TODO in app.py
