@@ -7,12 +7,9 @@ app = Flask(__name__)
 
 app.secret_key = os.urandom(32)
 
-loggedin = False
-
 @app.route('/')
 def home():
     keyword = request.args.get('search', '')
-
     raw = news.top_headlines_by_keyword(keyword)
     articles = news.list_article_titles(raw)
     links = news.list_article_urls(raw)
@@ -30,10 +27,10 @@ def home():
         data = dictionary
     else:
         data = { 'No results found! Try again' : '/' }
-    if loggedin:
-        return 0
+    if 'username' in session:
+        return render_template('home.html', hm = False, q = quote[0], c = quote[1], d = data, li = True, u = session['username'], s = session['stats'])
     else:
-        return render_template('home.html', hm = False, q = quote[0], c = quote[1], d = data)
+        return render_template('home.html', hm = False, q = quote[0], c = quote[1], d = data, li = False)
 
 @app.route('/signup')
 def signup():
@@ -72,8 +69,8 @@ def loginauth():
     type = 'alert'
     message = ''
     if user.authenticate(username, password):
-        loggedin = True
         session['username'] = username
+        session['stats'] = user.getStats(username)
         return redirect('/')
     else:
         message = "Invalid Username Password Combination"

@@ -91,3 +91,7 @@ rubinP -- 2018-11-27 13:18
 
 williamL -- 2018-11-27 13:25
 - Edited authentication process
+
+williamL -- 2018-11-27 20:40
+- Edited home.html such that it displays differently when logged in
+- Added getTags(), getCities(), getStats() in util/user.py

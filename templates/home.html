@@ -11,12 +11,18 @@
 
 			<div class="top-bar-left">
 				<ul class="menu">
+					{% if li %}
+					<li>
+						<a href="/logout">Logout</a>
+					</li>
+					{% else %}
 					<li>
 						<a href="/login">Login</a>
 					</li>
 					<li>
 						<a href="/signup">Sign up</a>
 					</li>
+					{% endif %}
 				</ul>
 			</div>
 
@@ -73,6 +79,24 @@
 									{{c}}
 								</cite>
 							</blockquote>
+							{% if li %}
+							<hr>
+							<h4>Hello, <em>{{u}}</em>!</h4>
+							<h5>Tags:</h5>
+							<ul>
+								{% for tag in s['tags']%}
+								<li><span class="label">{{tag}}</span></li>
+								{% endfor %}
+							</ul>
+							<a href="/addTag" class="small secondary button">Add Tags</a>
+							<h5>Cities:</h5>
+							<ul>
+								{% for city in s['cities']%}
+								<li><span class="info label">{{city}}</span></li>
+								{% endfor %}
+							</ul>
+							<a href="/addCity" class="small secondary button">Add Cities</a>
+							{% endif %}
 						</div>
 					</div>
 				</div>

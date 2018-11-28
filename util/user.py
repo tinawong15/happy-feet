@@ -9,7 +9,9 @@ def createTable():
     ''' This function creates Users table in database with column names id, username, and password.'''
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
-    c.execute("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, user TEXT, password TEXT, question TEXT, answer TEXT)")
+    c.execute("CREATE TABLE IF NOT EXISTS users (user TEXT, password TEXT, question TEXT, answer TEXT)")
+    c.execute("CREATE TABLE IF NOT EXISTS tags (user TEXT, tag TEXT)")
+    c.execute("CREATE TABLE IF NOT EXISTS cities (user TEXT, city TEXT)")
     db.commit()
     db.close()
 
@@ -67,5 +69,45 @@ def checkAnswer(usr, ans):
         if row[0] == usr:
             db.close()
             return row[3] == ans
+
+# given a user, returns a list of all the saved tags for news
+def getTags(usr):
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+    data = c.execute("SELECT * FROM tags")
+    l = [];
+    for row in data:
+        if row[0] == usr:
+            l.append(row[1])
+    db.close()
+    return l
+
+# given a user, returns a list of all the bookmarked cities for weather
+def getCities(usr):
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+    data = c.execute("SELECT * FROM cities")
+    l = [];
+    for row in data:
+        if row[0] == usr:
+            l.append(row[1])
+    db.close()
+    return l
+
+# given a user, returns a dictionary with all stats associated with the user
+def getStats(usr):
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+    data = c.execute("SELECT * FROM users")
+    d = {}
+    for row in data:
+        if usr == row[0]:
+            d['password'] = row[1]
+            d['question'] = row[2]
+            d['answer'] = row[3]
+            d['tags'] = getTags(usr)
+            d['cities'] = getCities(usr)
+            db.close()
+            return d
 
 createTable()
