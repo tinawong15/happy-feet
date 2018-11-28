@@ -28,9 +28,9 @@ def home():
     else:
         data = { 'No results found! Try again' : '/' }
     if 'username' in session:
-        return render_template('home.html', hm = False, q = quote[0], c = quote[1], d = data, li = True, u = session['username'], s = session['stats'])
+        return render_template('home.html', hm = False, q = quote[0], c = quote[1], d = data, li = True, u = session['username'], s = session['stats'], ip_address = request.environ.get('HTTP_X_REAL_IP', request.remote_addr))
     else:
-        return render_template('home.html', hm = False, q = quote[0], c = quote[1], d = data, li = False)
+        return render_template('home.html', hm = False, q = quote[0], c = quote[1], d = data, li = False, ip_address = request.environ.get('HTTP_X_REAL_IP', request.remote_addr))
 
 @app.route('/signup')
 def signup():
