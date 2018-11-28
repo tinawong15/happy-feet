@@ -1,7 +1,7 @@
 # from passlib.hash import sha256_crypt
 from util import news, fortune, user
 import os
-from flask import Flask, render_template, request, session, redirect
+from flask import Flask, render_template, request, session, redirect, url_for
 
 app = Flask(__name__)
 
@@ -76,6 +76,11 @@ def loginauth():
         message = "Invalid Username Password Combination"
         return render_template('login.html', hm = hasMsg, msg = message, t = type)
 
+@app.route('/logout')
+def logout():
+    '''This function removes the username from the session, logging the user out. Redirects user to home page.'''
+    session.pop('username') # ends session
+    return redirect(url_for('home'))
 
 if __name__ == "__main__":
     app.debug = True
