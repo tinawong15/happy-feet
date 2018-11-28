@@ -89,14 +89,20 @@
 								<li><span class="label">{{tag}}</span></li>
 								{% endfor %}
 							</ul>
-							<a href="/addTag" class="small secondary button">Add Tags</a>
-							<h5>Cities:</h5>
+							<form action="/" method="GET">
+								<input type="text" name="newTag">
+								<button type="submit" class="small secondary button">Add Tag</button>
+							</form>
+							<h5>Locations:</h5>
 							<ul>
 								{% for city in s['cities']%}
 								<li><span class="info label">{{city}}</span></li>
 								{% endfor %}
 							</ul>
-							<a href="/addCity" class="small secondary button">Add Cities</a>
+							<form action="/" method="GET">
+								<input type="text" name="newLoc">
+								<button type="submit" class="small secondary button">Add Location</button>
+							</form>
 							{% endif %}
 						</div>
 					</div>
