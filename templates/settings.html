@@ -4,7 +4,33 @@
 Settings
 {% endblock %}
 
-{% block contents %}
+{% block content %}
 <h1 align="center"> SETTINGS </h1>
 <hr>
-<
+<div class="grid-x grid-padding-x">
+  <div class="small-2 cell"></div>
+  <div class="large-8 cell">
+    <hr>
+    {% if hm %}
+    <div class="{{t}} callout">
+      <h4 style="text-align: center;">{{msg}}</h4>
+    </div>
+    <hr>
+    {% endif %}
+    <div class="warning callout">
+      <div class="grid-x grid-padding-x">
+        <div class="medium-8 cell">
+          <div class="primary callout">
+           
+SETTINGS FORMS
+	    
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+</html>
+  
