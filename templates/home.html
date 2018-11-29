@@ -7,43 +7,6 @@
 {% block content %}
 	<div id="wrapper">
 
-		<div class="top-bar is-at-top">
-
-			<div class="top-bar-left">
-				<ul class="menu">
-					<a href="/">Home</a>
-					{% if li %}
-					<li>
-						<a href="/logout">Logout</a>
-					</li>
-					{% else %}
-					<li>
-						<a href="/login">Login</a>
-					</li>
-					<li>
-						<a href="/signup">Sign up</a>
-					</li>
-					{% endif %}
-				</ul>
-			</div>
-
-			<div class="top-bar-right">
-
-				<form action="/">
-					<ul class="menu">
-						<li>
-							<input type="text" name="search" placeholder="News Search">
-						</li>
-						<li>
-							<button type="submit" class="button round" name="button">Search</button>
-						</li>
-					</ul>
-				</form>
-
-			</div>
-
-		</div>
-
 		<div class="grid-x grid-padding-x">
 			<div class="large-12 cell">
 				<br><br><br>
