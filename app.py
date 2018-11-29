@@ -25,6 +25,7 @@ def home():
 
     quote = fortune.getQuote()
     coordinates = location.get_coordinates('brooklyn')
+
     if dictionary:
         data = dictionary
     else:
