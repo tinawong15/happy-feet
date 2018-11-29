@@ -72,6 +72,32 @@ def checkAnswer(usr, ans):
             db.close()
             return row[3] == ans
 
+def addTag(usr, tag):
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+    data = c.execute('SELECT * FROM ' + usr + '_tags')
+    for row in data:
+        if row[0] == tag:
+            db.close()
+            return False
+    c.execute('INSERT INTO ' + usr + '_tags VALUES ("' + tag + '")' )
+    db.commit()
+    db.close()
+    return True
+
+def addLoc(usr, loc):
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+    data = c.execute('SELECT * FROM ' + usr + '_locations')
+    for row in data:
+        if row[0] == loc:
+            db.close()
+            return False
+    c.execute('INSERT INTO ' + usr + '_locations VALUES ("' + loc + '")' )
+    db.commit()
+    db.close()
+    return True
+
 # given a user, returns a list of all the saved tags for news
 def getTags(usr):
     db = sqlite3.connect(DB_FILE)

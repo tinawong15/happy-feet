@@ -15,6 +15,8 @@ def home():
     articles = news.list_article_titles(raw)
     links = news.list_article_urls(raw)
     dictionary = {}
+    message = ''
+    type = 'warning'
 
     i = 0
     while (i < len(articles)):
@@ -26,15 +28,26 @@ def home():
     quote = fortune.getQuote()
     coordinates = location.get_coordinates('brooklyn')
 
+    if 'username' in session:
+        if 'newTag' in request.args:
+            if not user.addTag(session['username'], request.args['newTag']):
+                message = 'Tag already exists.'
+
+        if 'newLoc' in request.args:
+            if not user.addLoc(session['username'], request.args['newLoc']):
+                message = 'Location already exists.'
+
+        session['stats'] = user.getStats(session['username'])
+
     if dictionary:
         data = dictionary
     else:
         data = { 'No results found! Try again' : '/' }
 
     if 'username' in session:
-        return render_template('home.html', hm = False, q = quote[0], c = quote[1], d = data, li = True, u = session['username'], s = session['stats'], daily_summary = forecast.get_daily_summary(coordinates[0], coordinates[1]))
+        return render_template('home.html', m = message, t = type, q = quote[0], c = quote[1], d = data, li = True, u = session['username'], s = session['stats'], daily_summary = forecast.get_daily_summary(coordinates[0], coordinates[1]))
     else:
-        return render_template('home.html', hm = False, q = quote[0], c = quote[1], d = data, li = False, daily_summary = forecast.get_daily_summary(coordinates[0], coordinates[1]))
+        return render_template('home.html', m = message, t = type, q = quote[0], c = quote[1], d = data, li = False, daily_summary = forecast.get_daily_summary(coordinates[0], coordinates[1]))
 
 @app.route('/signup')
 def signup():
@@ -74,7 +87,6 @@ def loginauth():
     message = ''
     if user.authenticate(username, password):
         session['username'] = username
-        session['stats'] = user.getStats(username)
         return redirect('/')
     else:
         message = "Invalid Username Password Combination"
