@@ -1,6 +1,7 @@
-# from passlib.hash import sha256_crypt
+#from passlib.hash import sha256_crypt
 from util import news, fortune, user
 import os
+
 from flask import Flask, render_template, request, session, redirect, url_for
 
 app = Flask(__name__)
