@@ -116,3 +116,11 @@ tinaW -- 2018-11-28 08:26
 
 tinaW -- 2018-11-29 12:52
 - Moved navbar to base
+
+rubinP -- 2018-11-28 13:34
+- Work on the util/ folder
+	- Remove ip.py due to the ip API not working as intended (kept returning local IP)
+	- Implemented the Bing Maps API in location.py
+	- Made sure the forecast.py and location.py could work together
+	- Have a test running on the site to display weather for Brooklyn, NY
+	- Will add the ability to search for locations soon

@@ -1,5 +1,6 @@
 import json, urllib.request
-#import ip
+#import location
+
 API_LINK = 'https://api.darksky.net/forecast/'
 API_KEY = '65661444800d8180135cd4c62317a82c'
 
@@ -93,9 +94,9 @@ print(get_future_daily_summary(42.3601,-71.0589, 8))
 '''
 
 '''
-testing implimentation of ip.py
+testing implimentation of location.py 
 works as intended!
 
-test = ip.get_location("174.202.6.0")
+test = location.get_coordinates('brooklyn')
 print(get_daily_summary(test[0], test[1]))
 '''

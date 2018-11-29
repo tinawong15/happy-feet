@@ -1,5 +1,5 @@
 #from passlib.hash import sha256_crypt
-from util import news, fortune, user
+from util import news, fortune, user, forecast, location
 import os
 
 from flask import Flask, render_template, request, session, redirect, url_for
@@ -24,15 +24,16 @@ def home():
     #print(dictionary)
 
     quote = fortune.getQuote()
+    coordinates = location.get_coordinates('brooklyn')
     if dictionary:
         data = dictionary
     else:
         data = { 'No results found! Try again' : '/' }
-    #TODO find way to get real IP address
+
     if 'username' in session:
-        return render_template('home.html', hm = False, q = quote[0], c = quote[1], d = data, li = True, u = session['username'], s = session['stats'], ip_address = request.environ.get('HTTP_X_REAL_IP', request.remote_addr))
+        return render_template('home.html', hm = False, q = quote[0], c = quote[1], d = data, li = True, u = session['username'], s = session['stats'], daily_summary = forecast.get_daily_summary(coordinates[0], coordinates[1]))
     else:
-        return render_template('home.html', hm = False, q = quote[0], c = quote[1], d = data, li = False, ip_address = request.environ.get('HTTP_X_REAL_IP', request.remote_addr))
+        return render_template('home.html', hm = False, q = quote[0], c = quote[1], d = data, li = False, daily_summary = forecast.get_daily_summary(coordinates[0], coordinates[1]))
 
 @app.route('/signup')
 def signup():

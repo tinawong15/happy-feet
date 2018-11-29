@@ -14,4 +14,4 @@ def get_coordinates(location):
     
 
 #print(get_raw_data('brooklyn'))
-print(get_coordinates('brooklyn'))
+#print(get_coordinates('brooklyn'))
