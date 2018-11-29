@@ -108,3 +108,8 @@ rubinP -- 2018-11-28 12:42
 	  based off of IP, seems accurate enough for now
 - Implement feature to show IP address on website
 	- Not accurate, will have to update - left a TODO in app.py
+
+tinaW -- 2018-11-28 08:26
+- Updated design doc with improved component map
+- Updated design doc with completed assignments
+- Moved db to data directory
