@@ -84,6 +84,11 @@ def logout():
     session.pop('username') # ends session
     return redirect(url_for('home'))
 
+@app.route("/settings")
+def settings():
+    return render_template("settings.html")
+
+
 if __name__ == "__main__":
     app.debug = True
     app.run()
