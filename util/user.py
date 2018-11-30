@@ -7,7 +7,7 @@ DB_FILE = "database.db"
 # creates table called users
 def createTable():
     ''' This function creates Users table in database with column names id, username, and password.'''
-    db = sqlite3.connect(DB_FILE)
+    db = sqlite3.connect('data/' + DB_FILE)
     c = db.cursor()
     c.execute("CREATE TABLE IF NOT EXISTS users (user TEXT, password TEXT, question TEXT, answer TEXT)")
     c.execute("CREATE TABLE IF NOT EXISTS tags (user TEXT, tag TEXT)")
@@ -17,7 +17,7 @@ def createTable():
 
 # if username already exists, returns false. otherwise inserts a row in users, returns true.
 def register(usr, psw, q, a):
-    db = sqlite3.connect(DB_FILE)
+    db = sqlite3.connect('data/' + DB_FILE)
     c = db.cursor()
     data = c.execute("SELECT * FROM users;")
     for row in data:
@@ -33,7 +33,7 @@ def register(usr, psw, q, a):
 
 # returns true if username and password match, false otherwise
 def authenticate(usr, psw):
-    db = sqlite3.connect(DB_FILE)
+    db = sqlite3.connect('data/' + DB_FILE)
     c = db.cursor()
     data = c.execute("SELECT * FROM users")
     for row in data:
@@ -45,7 +45,7 @@ def authenticate(usr, psw):
 
 # trivial
 def resetPassword(usr, psw):
-    db = sqlite3.connect(DB_FILE)
+    db = sqlite3.connect('data/' + DB_FILE)
     c = db.cursor()
     params = (psw, usr)
     c.execute("UPDATE users SET password = ? WHERE user = ?", params)
@@ -53,7 +53,7 @@ def resetPassword(usr, psw):
     db.close()
 
 def getQuestion(usr):
-    db = sqlite3.connect(DB_FILE)
+    db = sqlite3.connect('data/' + DB_FILE)
     c = db.cursor()
     data = c.execute("SELECT * FROM users")
     for row in data:
@@ -64,7 +64,7 @@ def getQuestion(usr):
     return -1
 
 def checkAnswer(usr, ans):
-    db = sqlite3.connect(DB_FILE)
+    db = sqlite3.connect('data/' + DB_FILE)
     c = db.cursor()
     data = c.execute("SELECT * FROM users")
     for row in data:
@@ -73,7 +73,7 @@ def checkAnswer(usr, ans):
             return row[3] == ans
 
 def addTag(usr, tag):
-    db = sqlite3.connect(DB_FILE)
+    db = sqlite3.connect('data/' + DB_FILE)
     c = db.cursor()
     data = c.execute('SELECT * FROM ' + usr + '_tags')
     for row in data:
@@ -86,7 +86,7 @@ def addTag(usr, tag):
     return True
 
 def addLoc(usr, loc):
-    db = sqlite3.connect(DB_FILE)
+    db = sqlite3.connect('data/' + DB_FILE)
     c = db.cursor()
     data = c.execute('SELECT * FROM ' + usr + '_locations')
     for row in data:
@@ -100,7 +100,7 @@ def addLoc(usr, loc):
 
 # given a user, returns a list of all the saved tags for news
 def getTags(usr):
-    db = sqlite3.connect(DB_FILE)
+    db = sqlite3.connect('data/' + DB_FILE)
     c = db.cursor()
     data = c.execute("SELECT * FROM " + usr + "_tags")
     l = [];
@@ -111,7 +111,7 @@ def getTags(usr):
 
 # given a user, returns a list of all the bookmarked cities for weather
 def getLocations(usr):
-    db = sqlite3.connect(DB_FILE)
+    db = sqlite3.connect('data/' + DB_FILE)
     c = db.cursor()
     data = c.execute("SELECT * FROM " + usr + "_locations")
     l = [];
@@ -122,7 +122,7 @@ def getLocations(usr):
 
 # given a user, returns a dictionary with all stats associated with the user
 def getStats(usr):
-    db = sqlite3.connect(DB_FILE)
+    db = sqlite3.connect('data/' + DB_FILE)
     c = db.cursor()
     data = c.execute("SELECT * FROM users")
     d = {}
@@ -136,4 +136,4 @@ def getStats(usr):
             db.close()
             return d
 
-createTable()
+#createTable()
