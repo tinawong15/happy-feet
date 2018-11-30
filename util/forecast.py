@@ -1,4 +1,5 @@
-import json, urllib.request
+import json
+import urllib.request
 #import location
 
 API_LINK = 'https://api.darksky.net/forecast/'
@@ -40,7 +41,7 @@ def get_daily_summary(lat, lon):
 
 
 #different way(?) of getting future requests
-#hours < 49 
+#hours < 49
 def get_future_hourly_summary(lat, lon, hours):
     data = get_json(lat, lon)
     return data['hourly']['data'][hours]['summary']
@@ -94,7 +95,7 @@ print(get_future_daily_summary(42.3601,-71.0589, 8))
 '''
 
 '''
-testing implimentation of location.py 
+testing implimentation of location.py
 works as intended!
 
 test = location.get_coordinates('brooklyn')

@@ -127,3 +127,6 @@ rubinP -- 2018-11-28 13:34
 
 williamL -- 2018-11-29 18:00
   - Added functionalities: add tag and location
+
+tinaW -- 2018-11-30 12:56
+- Edited import statements to follow proper convention

@@ -1,4 +1,5 @@
-import json, urllib.request
+import json
+import urllib.request
 
 API_LINK = 'https://newsapi.org/v2/top-headlines?'
 API_KEY = "a842f08935ec4c4f8cbfa0ca729fc2c1"
