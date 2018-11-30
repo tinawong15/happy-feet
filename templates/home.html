@@ -50,9 +50,11 @@
 							<h4>Hello, <em>{{u}}</em>!</h4>
 							<h5>Tags:</h5>
 							<ul>
+								<form action="/" method="GET">
 								{% for tag in s['tags']%}
-								<li><span class="label">{{tag}}</span></li>
+									<li><button type="submit" class="tiny button" name="search" value="{{tag}}">{{tag}}</button></li>
 								{% endfor %}
+								</form>
 							</ul>
 							<form action="/" method="GET">
 								<input type="text" name="newTag">
@@ -60,9 +62,11 @@
 							</form>
 							<h5>Locations:</h5>
 							<ul>
+								<form action="/" method="GET">
 								{% for loc in s['locations']%}
-								<li><span class="info label">{{loc}}</span></li>
+									<li><button type="submit" class="tiny button" name="search" value="{{loc}}">{{loc}}</button></li>
 								{% endfor %}
+								</form>
 							</ul>
 							<form action="/" method="GET">
 								<input type="text" name="newLoc">
