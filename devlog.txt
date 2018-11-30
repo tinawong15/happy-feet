@@ -125,5 +125,5 @@ rubinP -- 2018-11-28 13:34
 	- Have a test running on the site to display weather for Brooklyn, NY
 	- Will add the ability to search for locations soon
 
-  williamL -- 2018-11-29 18:00
+williamL -- 2018-11-29 18:00
   - Added functionalities: add tag and location
