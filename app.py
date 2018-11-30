@@ -28,7 +28,14 @@ def home():
     #print(dictionary)
 
     quote = fortune.getQuote()
-    coordinates = location.get_coordinates('brooklyn')
+    if 'searchLoc' in request.args:
+        # print(request.args['searchLoc'])
+        loc = request.args['searchLoc']
+
+    else:
+        loc = 'manhattan'
+
+    coordinates = location.get_coordinates(loc)
 
     if 'username' in session:
         if 'newTag' in request.args:
@@ -47,9 +54,9 @@ def home():
         data = { 'No results found! Try again' : '/' }
 
     if 'username' in session:
-        return render_template('home.html', m = message, t = type, q = quote[0], c = quote[1], d = data, li = True, u = session['username'], s = session['stats'], daily_summary = forecast.get_daily_summary(coordinates[0], coordinates[1]))
+        return render_template('home.html', m = message, t = type, q = quote[0], c = quote[1], d = data, li = True, u = session['username'], s = session['stats'], l = loc, daily_summary = forecast.get_daily_summary(coordinates[0], coordinates[1]))
     else:
-        return render_template('home.html', m = message, t = type, q = quote[0], c = quote[1], d = data, li = False, daily_summary = forecast.get_daily_summary(coordinates[0], coordinates[1]))
+        return render_template('home.html', m = message, t = type, q = quote[0], c = quote[1], d = data, li = False, l = loc, daily_summary = forecast.get_daily_summary(coordinates[0], coordinates[1]))
 
 @app.route('/signup')
 def signup():
