@@ -4,7 +4,7 @@
 P01: ArRESTed Development
 
 ## Description
-UwU News is a website that displays the latest news articles, weather forecasts, and a quote/fact of the day by using the News API, Dark Sky API, and Fortune Cookie API. This will serve as a home page for the user. If logged in, the articles and forecast shown will be based on the user's preferences when they make their account and can be changed whenever they please.
+UwU News is a website that displays the latest news articles, weather forecasts of a location, and a quote/fact of the day by using the News API, Bing Maps API, Dark Sky API, and Fortune Cookie API. This will serve as a home page for the user. If logged in, the articles and forecast shown will be based on the user's preferences when they make their account and can be changed whenever they please.
 
 ## Instructions to Run
 1. Clone this repository:
@@ -39,11 +39,17 @@ $ . venv/bin/activate
 
 ## Dependencies
 - News API
-     1. Procure an API key [here](https://newsapi.org/). After clicking on "Get API key" to register, an API key will be presented.
-     2. Use API key to request information from API.
+     - Procure an API key [here](https://newsapi.org/). After clicking on "Get API key" to register, an API key will be presented.
+     - Use API key to request information from API.
+     - We used this API to request the latest headlines and the links to the actual articles to display on the home page of our site. We also used its search capability to display relevant news articles based on the user's query.
 - Dark Sky API
-     1. Procure an API key [here](https://darksky.net/dev) by registering your email. Click the link to verify your identity.
-     2. Login and request a key.
-     3. Use API key to request information from API.
+     - Procure an API key [here](https://darksky.net/dev) by registering your email. Click the link to verify your identity.
+     - Login and request a key.
+     - Use API key to request information from API about the current and future weather.
+- Bing Maps API
+     - Procure an API key [here](https://www.bingmapsportal.com/) by registering for a Microsoft account.
+     - Use API key to request information from API.
+     - We used this API to request the location of the user. We combined this information with the Dark Sky API to provide the user with accurate weather based on the location that the user is from.
 - Fortune Cookie API
-     - no API key needed
+     - no API key needed, but documentation is [here](http://yerkee.com/api/)
+     - We used this API to request a random quote and the author of the quote to display on the home page of our site.  
