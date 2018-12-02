@@ -15,7 +15,7 @@
 
 					{% if m != '' %}
 					<div class="{{t}} callout">
-						<h4 style="text-align: center;">{{m}}</h4>
+						<h4 style="text-align: center;">{{m}}<em>{{k}}</em></h4>
 					</div>
 					<hr>
 					{% endif %}
@@ -23,9 +23,13 @@
 					<div class="grid-x grid-padding-x">
 
 						<div class="small-3 cell">
-							<h2>Weather</h2>
+							<div class="primary callout">
 							<h3>Weather for {{l}}</h3>
-							<h4> {{ daily_summary }} </h4>
+								<div class="secondary callout">
+									<p> {{ daily_summary }} </p>
+								</div>
+							</div>
+
 						</div>
 
 						<div class="medium-6 cell">

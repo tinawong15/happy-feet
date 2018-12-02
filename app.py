@@ -10,7 +10,7 @@ app = Flask(__name__)
 
 app.secret_key = os.urandom(32)
 
-@app.route('/')
+@app.route('/', methods=['GET'])
 def home():
     keyword = request.args.get('search', '')
     raw = news.top_headlines_by_keyword(keyword)
@@ -18,7 +18,11 @@ def home():
     links = news.list_article_urls(raw)
     dictionary = {}
     message = ''
-    type = 'warning'
+    type = ''
+
+    if keyword != '':
+        message = 'New Search Keyword: '
+        type = 'success'
 
     i = 0
     while (i < len(articles)):
@@ -28,23 +32,26 @@ def home():
     #print(dictionary)
 
     quote = fortune.getQuote()
-    if 'searchLoc' in request.args:
+    if 'searchLoc' in request.args and request.args['searchLoc'] != '':
         # print(request.args['searchLoc'])
-        loc = request.args['searchLoc']
+        session['location'] = request.args['searchLoc']
 
-    else:
-        loc = 'manhattan'
+    elif 'location' not in session:
+        session['location'] = 'Manhattan'
 
-    coordinates = location.get_coordinates(loc)
+    print(session['location'])
+    coordinates = location.get_coordinates(session['location'])
 
     if 'username' in session:
         if 'newTag' in request.args:
             if not user.addTag(session['username'], request.args['newTag']):
-                message = 'Tag already exists.'
+                message = 'Error: Tag already exists.'
+                type = 'warning'
 
         if 'newLoc' in request.args:
             if not user.addLoc(session['username'], request.args['newLoc']):
-                message = 'Location already exists.'
+                message = 'Error: Location already exists.'
+                type = 'warning'
 
         session['stats'] = user.getStats(session['username'])
 
@@ -54,9 +61,9 @@ def home():
         data = { 'No results found! Try again' : '/' }
 
     if 'username' in session:
-        return render_template('home.html', m = message, t = type, q = quote[0], c = quote[1], d = data, li = True, u = session['username'], s = session['stats'], l = loc, daily_summary = forecast.get_daily_summary(coordinates[0], coordinates[1]))
+        return render_template('home.html', m = message, k = keyword, t = type, q = quote[0], c = quote[1], d = data, li = True, u = session['username'], s = session['stats'], l = session['location'], daily_summary = forecast.get_daily_summary(coordinates[0], coordinates[1]))
     else:
-        return render_template('home.html', m = message, t = type, q = quote[0], c = quote[1], d = data, li = False, l = loc, daily_summary = forecast.get_daily_summary(coordinates[0], coordinates[1]))
+        return render_template('home.html', m = message, k = keyword, t = type, q = quote[0], c = quote[1], d = data, li = False, l = session['location'], daily_summary = forecast.get_daily_summary(coordinates[0], coordinates[1]))
 
 @app.route('/signup')
 def signup():
@@ -105,6 +112,7 @@ def loginauth():
 def logout():
     '''This function removes the username from the session, logging the user out. Redirects user to home page.'''
     session.pop('username') # ends session
+    session.pop('location')
     return redirect(url_for('home'))
 
 @app.route("/settings")
