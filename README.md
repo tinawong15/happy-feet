@@ -39,5 +39,11 @@ $ . venv/bin/activate
 
 ## Dependencies
 - News API
+     1. Procure an API key [here] (https://newsapi.org/). After clicking on "Get API key" to register, an API key will be presented.
+     2. Use API key to request information from API.
 - Dark Sky API
+     1. Procure an API key [here] (https://darksky.net/dev) by registering your email. Click the link to verify your identity.
+     2. Login and request a key.
+     3. Use API key to request information from API.
 - Fortune Cookie API
+     - no API key needed
