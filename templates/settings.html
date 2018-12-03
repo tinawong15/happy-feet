@@ -5,6 +5,7 @@ Settings
 {% endblock %}
 
 {% block content %}
+<br><br><br><br>
 <h1 align="center"> SETTINGS </h1>
 <hr>
 <div class="grid-x grid-padding-x">
@@ -12,7 +13,7 @@ Settings
   <div class="small-2 cell"></div>
 
   <div class="large-8 cell">
-    <hr>
+    <!-- <hr> -->
     {% if msg != '' %}
     <div class="{{t}} callout">
       <h4 style="text-align: center;">{{msg}}</h4>
@@ -20,23 +21,45 @@ Settings
     <hr>
     {% endif %}
     <div class="warning callout">
+      <h4>Password Change:</h4>
+      <form action = "/settings" method = "POST">
+        <input type = "password" name = "oldPass" placeholder="Original Password">
+        <input type = "password" name = "newPass" placeholder="New Password">
+        <button type="submit" class="button" name="sub">Submit</button>
+      </form>
       <div class="grid-x grid-padding-x">
         <div class="medium-6 cell">
           <div class="primary callout">
 
-            <h5>Tags:</h5>
-            <ul>
-              <form action="/" method="GET">
+            <h4>Tags:</h4>
+              <form action="/settings" method="GET">
               {% for tag in s['tags']%}
-                <li>
-                  <input type="radio" name="rmTag" value="{{tag}}">
+
+                  <input type="checkbox" name="rm_{{tag}}" value="{{tag}}">
                     <span class="label">{{tag}}</span>
                   </input>
-                </li>
+                <br>
               {% endfor %}
-              <button type="submit" name="sub">Remove</button>
+              <button class="small alert button" type="submit" name="sub">Remove</button>
               </form>
-            </ul>
+
+          </div>
+        </div>
+
+        <div class="medium-6 cell">
+          <div class="primary callout">
+
+            <h4>Locations:</h4>
+              <form action="/settings" method="GET">
+              {% for loc in s['locations']%}
+
+                  <input type="checkbox" name="rm_{{loc}}" value="{{loc}}">
+                    <span class="label">{{loc}}</span>
+                  </input>
+                <br>
+              {% endfor %}
+              <button class="small alert button" type="submit" name="sub">Remove</button>
+              </form>
 
           </div>
         </div>
