@@ -126,7 +126,8 @@ def logout():
 
 @app.route("/settings")
 def settings():
-    return render_template("settings.html", li = True)
+    message = ''
+    return render_template("settings.html", li = True, msg = message, s = session['stats'])
 
 
 if __name__ == "__main__":

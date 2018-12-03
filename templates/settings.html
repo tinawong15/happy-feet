@@ -8,10 +8,12 @@ Settings
 <h1 align="center"> SETTINGS </h1>
 <hr>
 <div class="grid-x grid-padding-x">
+
   <div class="small-2 cell"></div>
+
   <div class="large-8 cell">
     <hr>
-    {% if hm %}
+    {% if msg != '' %}
     <div class="{{t}} callout">
       <h4 style="text-align: center;">{{msg}}</h4>
     </div>
@@ -19,18 +21,31 @@ Settings
     {% endif %}
     <div class="warning callout">
       <div class="grid-x grid-padding-x">
-        <div class="medium-8 cell">
+        <div class="medium-6 cell">
           <div class="primary callout">
-           
-SETTINGS FORMS
-	    
+
+            <h5>Tags:</h5>
+            <ul>
+              <form action="/" method="GET">
+              {% for tag in s['tags']%}
+                <li>
+                  <input type="radio" name="rmTag" value="{{tag}}">
+                    <span class="label">{{tag}}</span>
+                  </input>
+                </li>
+              {% endfor %}
+              <button type="submit" name="sub">Remove</button>
+              </form>
+            </ul>
+
           </div>
         </div>
       </div>
     </div>
   </div>
+
+  <div class="small-2 cell"></div>
 </div>
 {% endblock %}
 
 </html>
-  
