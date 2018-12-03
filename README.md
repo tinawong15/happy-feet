@@ -37,6 +37,8 @@ $ . venv/bin/activate
 
 7. To terminate your server instance, type <kbd> CTRL </kbd> + <kbd> C </kbd>.
 
+8. To deactivate your virtual environment, type `deactivate`.
+
 ## Dependencies
 - News API
      - Procure an API key [here](https://newsapi.org/). After clicking on "Get API key" to register, an API key will be presented.
