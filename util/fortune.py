@@ -3,6 +3,8 @@ import urllib.request
 
 API_LINK = "http://yerkee.com/api/fortune"
 
+#gets random quote and author
+#returns anonymous if the author is unknown
 def getQuote():
     raw = urllib.request.urlopen(API_LINK);
     json_data = json.loads( raw.read() )

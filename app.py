@@ -16,6 +16,7 @@ def home():
     articles = news.list_article_titles(raw)
     links = news.list_article_urls(raw)
     dictionary = {}
+
     if 'message' in session:
         message = session['message']
         type = 'success'

@@ -1,5 +1,6 @@
 #code to create user table in database.db
 import sqlite3
+from passlib.hash import sha256_crypt
 
 DB_FILE = "data/database.db"
 
@@ -9,8 +10,8 @@ def createTable():
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
     c.execute("CREATE TABLE IF NOT EXISTS users (user TEXT, password TEXT, question TEXT, answer TEXT)")
-    # c.execute("CREATE TABLE IF NOT EXISTS tags (user TEXT, tag TEXT)")
-    # c.execute("CREATE TABLE IF NOT EXISTS cities (user TEXT, city TEXT)")
+    c.execute("CREATE TABLE IF NOT EXISTS tags (user TEXT, tag TEXT)")
+    c.execute("CREATE TABLE IF NOT EXISTS cities (user TEXT, city TEXT)")
     db.commit()
     db.close()
 
@@ -22,7 +23,7 @@ def register(usr, psw, q, a):
     for row in data:
         if usr == row[0]:
             return False
-    params = (usr, psw, q, a)
+    params = (usr, sha256_crypt.hash(psw), q, a)
     c.execute("INSERT INTO users VALUES (?, ?, ?, ?)", params)
     c.execute("CREATE TABLE " + usr + "_tags (tag TEXT)")
     c.execute("CREATE TABLE " + usr + "_locations (location TEXT)")
@@ -36,7 +37,7 @@ def authenticate(usr, psw):
     c = db.cursor()
     data = c.execute("SELECT * FROM users")
     for row in data:
-        if row[0] == usr and row[1] == psw:
+        if row[0] == usr and sha256_crypt.verify(psw, row[1]):
             db.close()
             return True
     db.close()
