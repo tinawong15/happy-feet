@@ -36,6 +36,7 @@ def authenticate(usr, psw):
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
     data = c.execute("SELECT * FROM users")
+    #checks if the usernames and encrypted passwords match
     for row in data:
         if row[0] == usr and sha256_crypt.verify(psw, row[1]):
             db.close()
@@ -47,7 +48,7 @@ def authenticate(usr, psw):
 def resetPassword(usr, psw):
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
-    params = (psw, usr)
+    params = (sha256_crypt.hash(psw), usr)
     c.execute("UPDATE users SET password = ? WHERE user = ?", params)
     db.commit()
     db.close()
