@@ -5,7 +5,6 @@ from flask import Flask, render_template, request, session, redirect, url_for
 #from passlib.hash import sha256_crypt
 from util import news, fortune, user, forecast, location
 
-
 app = Flask(__name__)
 
 app.secret_key = os.urandom(32)
@@ -42,6 +41,8 @@ def home():
     print(session['location'])
     coordinates = location.get_coordinates(session['location'])
 
+    forecast_data = forecast.get_json(coordinates[0], coordinates[1])
+
     if 'username' in session:
         if 'newTag' in request.args:
             if not user.addTag(session['username'], request.args['newTag']):
@@ -61,9 +62,9 @@ def home():
         data = { 'No results found! Try again' : '/' }
 
     if 'username' in session:
-        return render_template('home.html', m = message, k = keyword, t = type, q = quote[0], c = quote[1], d = data, li = True, u = session['username'], s = session['stats'], l = session['location'], daily_summary = forecast.get_daily_summary(coordinates[0], coordinates[1]))
+        return render_template('home.html', m = message, k = keyword, t = type, q = quote[0], c = quote[1], d = data, li = True, u = session['username'], s = session['stats'], l = session['location'], daily_summary = forecast.get_daily_summary(forecast_data))
     else:
-        return render_template('home.html', m = message, k = keyword, t = type, q = quote[0], c = quote[1], d = data, li = False, l = session['location'], daily_summary = forecast.get_daily_summary(coordinates[0], coordinates[1]))
+        return render_template('home.html', m = message, k = keyword, t = type, q = quote[0], c = quote[1], d = data, li = False, l = session['location'], daily_summary = forecast.get_daily_summary(forecast_data))
 
 @app.route('/signup')
 def signup():
