@@ -35,12 +35,12 @@ Settings
               <form action="/settings" method="GET">
               {% for tag in s['tags']%}
 
-                  <input type="checkbox" name="rm_{{tag}}" value="{{tag}}">
+                  <input type="checkbox" name="{{tag}}">
                     <span class="label">{{tag}}</span>
                   </input>
                 <br>
               {% endfor %}
-              <button class="small alert button" type="submit" name="sub">Remove</button>
+              <button class="small alert button" type="submit" name="rmTag">Remove</button>
               </form>
 
           </div>
@@ -53,12 +53,12 @@ Settings
               <form action="/settings" method="GET">
               {% for loc in s['locations']%}
 
-                  <input type="checkbox" name="rm_{{loc}}" value="{{loc}}">
+                  <input type="checkbox" name="{{loc}}">
                     <span class="label">{{loc}}</span>
                   </input>
                 <br>
               {% endfor %}
-              <button class="small alert button" type="submit" name="sub">Remove</button>
+              <button class="small alert button" type="submit" name="subLoc">Remove</button>
               </form>
 
           </div>

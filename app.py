@@ -125,9 +125,28 @@ def logout():
     session['message'] = 'You have successfully logged out.'
     return redirect('/')
 
-@app.route("/settings")
+@app.route("/settings", methods=['GET', 'POST'])
 def settings():
     message = ''
+    type = ''
+    if 'oldPass' in request.form:
+        if user.authenticate(session['username'], request.form['oldPass']):
+            resetPassword(session['username'], request.form['newPass'])
+            message = 'Your have successfully reset your password'
+        else:
+            message = 'Reset failed: Invalid Username Password Combination'
+
+    if 'rmTag' in request.args:
+        request.args.pop('rmTag')
+        for tag in request.args:
+            user.removeTag(session['username'], tag)
+        message = 'Tags are successfully removed.'
+
+    if 'rmLoc' in request.args:
+        request.args.pop('rmLoc')
+        for loc in request.args:
+            user.removeLoc(session['username'], loc)
+        message = 'Locations are successfully removed.'
     return render_template("settings.html", li = True, msg = message, s = session['stats'])
 
 
