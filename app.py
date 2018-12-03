@@ -16,8 +16,13 @@ def home():
     articles = news.list_article_titles(raw)
     links = news.list_article_urls(raw)
     dictionary = {}
-    message = ''
-    type = ''
+    if 'message' in session:
+        message = session['message']
+        type = 'success'
+        session.pop('message')
+    else:
+        message = ''
+        type = ''
 
     if keyword != '':
         message = 'New Search Keyword: '
@@ -89,36 +94,39 @@ def signupauth():
         return render_template('signup.html', hm = hasMsg, msg = message, t = type)
     else:
         user.register(usern, pswd0, request.form['question'], request.form['answer'])
-        return render_template('signupauth.html')
+        session['message'] = 'You have successfully signed up.'
+        return redirect('/')
 
 @app.route('/login')
 def login():
-    return render_template('login.html', hasMsg = False)
+    message = ''
+    return render_template('login.html', msg = message)
 
 @app.route('/loginauth', methods = ['POST'])
 def loginauth():
     username = request.form['username']
     password = request.form['password']
-    hasMsg = True
     type = 'alert'
     message = ''
     if user.authenticate(username, password):
         session['username'] = username
+        session['message'] = 'You have successfully logged in.'
         return redirect('/')
     else:
         message = "Invalid Username Password Combination"
-        return render_template('login.html', hm = hasMsg, msg = message, t = type)
+        return render_template('login.html', msg = message, t = type)
 
 @app.route('/logout')
 def logout():
     '''This function removes the username from the session, logging the user out. Redirects user to home page.'''
     session.pop('username') # ends session
     session.pop('location')
-    return redirect(url_for('home'))
+    session['message'] = 'You have successfully logged out.'
+    return redirect('/')
 
 @app.route("/settings")
 def settings():
-    return render_template("settings.html")
+    return render_template("settings.html", li = True)
 
 
 if __name__ == "__main__":

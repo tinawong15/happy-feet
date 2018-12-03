@@ -138,3 +138,8 @@ tinaW -- 2018-12-01 20:31
 williamL -- 2018-12-2 12:30
 - Added search location input on top bar
 - Added message for news search keyword
+
+williamL -- 2018-12-3 9:15
+- Added link to settings on home page
+- Added message displayed when logged out, signed up, and logged in
+- Moved fortune to the left and added text while not logged in on the right

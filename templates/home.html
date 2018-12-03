@@ -22,7 +22,15 @@
 
 					<div class="grid-x grid-padding-x">
 
-						<div class="small-3 cell">
+					  <div class="small-3 cell">
+					    <h4>Fortune says,</h4>
+							<blockquote>
+								{{q}}
+								<cite>
+									{{c}}
+								</cite>
+							</blockquote>
+							<hr>
 							<div class="primary callout">
 							<h3>Weather for {{l}}</h3>
 								<div class="secondary callout">
@@ -42,15 +50,9 @@
 						</div>
 
 						<div class="small-3 cell">
-							<h4>Fortune says,</h4>
-							<blockquote>
-								{{q}}
-								<cite>
-									{{c}}
-								</cite>
-							</blockquote>
+							
 							{% if li %}
-							<hr>
+							
 							<h4>Hello, <em>{{u}}</em>!</h4>
 							<h5>Tags:</h5>
 							<ul>
@@ -76,6 +78,10 @@
 								<input type="text" name="newLoc">
 								<button type="submit" class="small secondary button">Add Location</button>
 							</form>
+							{% else %}
+							<div class="warning callout">
+							  <h3>Login to display user info.</h3>
+							</div>
 							{% endif %}
 						</div>
 					</div>
