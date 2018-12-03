@@ -10,7 +10,7 @@
 <div class="grid-x grid-padding-x">
   <div class="small-2 cell"></div>
   <div class="large-8 cell">
-    {% if hm %}
+    {% if msg != '' %}
     <div class="{{t}} callout">
       <h4 style="text-align: center;">{{msg}}</h4>
     </div>
@@ -23,7 +23,7 @@
 		        <form action = "/loginauth" method = "POST">
 		          <input type = "text" name = "username" placeholder="Username">
 		          <input type = "password" name = "password" placeholder="Password">
-		          <button type="submit" class="button" name="sub">Submit</button>
+		          <button type="submit" class="button" name="sub">Login</button>
 		       	</form>
 		      </div>
 		    </div>

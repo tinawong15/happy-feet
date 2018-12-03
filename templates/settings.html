@@ -5,32 +5,70 @@ Settings
 {% endblock %}
 
 {% block content %}
+<br><br><br><br>
 <h1 align="center"> SETTINGS </h1>
 <hr>
 <div class="grid-x grid-padding-x">
+
   <div class="small-2 cell"></div>
+
   <div class="large-8 cell">
-    <hr>
-    {% if hm %}
+    <!-- <hr> -->
+    {% if msg != '' %}
     <div class="{{t}} callout">
       <h4 style="text-align: center;">{{msg}}</h4>
     </div>
     <hr>
     {% endif %}
     <div class="warning callout">
+      <h4>Password Change:</h4>
+      <form action = "/settings" method = "POST">
+        <input type = "password" name = "oldPass" placeholder="Original Password">
+        <input type = "password" name = "newPass" placeholder="New Password">
+        <button type="submit" class="button" name="sub">Submit</button>
+      </form>
       <div class="grid-x grid-padding-x">
-        <div class="medium-8 cell">
+        <div class="medium-6 cell">
           <div class="primary callout">
-           
-SETTINGS FORMS
-	    
+
+            <h4>Tags:</h4>
+              <form action="/settings" method="GET">
+              {% for tag in s['tags']%}
+
+                  <input type="checkbox" name="{{tag}}">
+                    <span class="label">{{tag}}</span>
+                  </input>
+                <br>
+              {% endfor %}
+              <button class="small alert button" type="submit" name="rmTag">Remove</button>
+              </form>
+
+          </div>
+        </div>
+
+        <div class="medium-6 cell">
+          <div class="primary callout">
+
+            <h4>Locations:</h4>
+              <form action="/settings" method="GET">
+              {% for loc in s['locations']%}
+
+                  <input type="checkbox" name="{{loc}}">
+                    <span class="label">{{loc}}</span>
+                  </input>
+                <br>
+              {% endfor %}
+              <button class="small alert button" type="submit" name="subLoc">Remove</button>
+              </form>
+
           </div>
         </div>
       </div>
     </div>
   </div>
+
+  <div class="small-2 cell"></div>
 </div>
 {% endblock %}
 
 </html>
-  

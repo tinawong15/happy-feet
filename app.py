@@ -5,20 +5,29 @@ from flask import Flask, render_template, request, session, redirect, url_for
 #from passlib.hash import sha256_crypt
 from util import news, fortune, user, forecast, location
 
-
 app = Flask(__name__)
 
 app.secret_key = os.urandom(32)
 
-@app.route('/')
+@app.route('/', methods=['GET'])
 def home():
     keyword = request.args.get('search', '')
     raw = news.top_headlines_by_keyword(keyword)
     articles = news.list_article_titles(raw)
     links = news.list_article_urls(raw)
     dictionary = {}
-    message = ''
-    type = 'warning'
+
+    if 'message' in session:
+        message = session['message']
+        type = 'success'
+        session.pop('message')
+    else:
+        message = ''
+        type = ''
+
+    if keyword != '':
+        message = 'New Search Keyword: '
+        type = 'success'
 
     i = 0
     while (i < len(articles)):
@@ -28,16 +37,28 @@ def home():
     #print(dictionary)
 
     quote = fortune.getQuote()
-    coordinates = location.get_coordinates('brooklyn')
+    if 'searchLoc' in request.args and request.args['searchLoc'] != '':
+        # print(request.args['searchLoc'])
+        session['location'] = request.args['searchLoc']
+
+    elif 'location' not in session:
+        session['location'] = 'Manhattan'
+
+    print(session['location'])
+    coordinates = location.get_coordinates(session['location'])
+
+    forecast_data = forecast.get_json(coordinates[0], coordinates[1])
 
     if 'username' in session:
         if 'newTag' in request.args:
             if not user.addTag(session['username'], request.args['newTag']):
-                message = 'Tag already exists.'
+                message = 'Error: Tag already exists.'
+                type = 'warning'
 
         if 'newLoc' in request.args:
             if not user.addLoc(session['username'], request.args['newLoc']):
-                message = 'Location already exists.'
+                message = 'Error: Location already exists.'
+                type = 'warning'
 
         session['stats'] = user.getStats(session['username'])
 
@@ -47,9 +68,9 @@ def home():
         data = { 'No results found! Try again' : '/' }
 
     if 'username' in session:
-        return render_template('home.html', m = message, t = type, q = quote[0], c = quote[1], d = data, li = True, u = session['username'], s = session['stats'], daily_summary = forecast.get_daily_summary(coordinates[0], coordinates[1]))
+        return render_template('home.html', m = message, k = keyword, t = type, q = quote[0], c = quote[1], d = data, li = True, u = session['username'], s = session['stats'], l = session['location'], daily_summary = forecast.get_daily_summary(forecast_data))
     else:
-        return render_template('home.html', m = message, t = type, q = quote[0], c = quote[1], d = data, li = False, daily_summary = forecast.get_daily_summary(coordinates[0], coordinates[1]))
+        return render_template('home.html', m = message, k = keyword, t = type, q = quote[0], c = quote[1], d = data, li = False, l = session['location'], daily_summary = forecast.get_daily_summary(forecast_data))
 
 @app.route('/signup')
 def signup():
@@ -74,35 +95,59 @@ def signupauth():
         return render_template('signup.html', hm = hasMsg, msg = message, t = type)
     else:
         user.register(usern, pswd0, request.form['question'], request.form['answer'])
-        return render_template('signupauth.html')
+        session['message'] = 'You have successfully signed up.'
+        return redirect('/')
 
 @app.route('/login')
 def login():
-    return render_template('login.html', hasMsg = False)
+    message = ''
+    return render_template('login.html', msg = message)
 
 @app.route('/loginauth', methods = ['POST'])
 def loginauth():
     username = request.form['username']
     password = request.form['password']
-    hasMsg = True
     type = 'alert'
     message = ''
     if user.authenticate(username, password):
         session['username'] = username
+        session['message'] = 'You have successfully logged in.'
         return redirect('/')
     else:
         message = "Invalid Username Password Combination"
-        return render_template('login.html', hm = hasMsg, msg = message, t = type)
+        return render_template('login.html', msg = message, t = type)
 
 @app.route('/logout')
 def logout():
     '''This function removes the username from the session, logging the user out. Redirects user to home page.'''
     session.pop('username') # ends session
-    return redirect(url_for('home'))
+    session.pop('location')
+    session['message'] = 'You have successfully logged out.'
+    return redirect('/')
 
-@app.route("/settings")
+@app.route("/settings", methods=['GET', 'POST'])
 def settings():
-    return render_template("settings.html")
+    message = ''
+    type = ''
+    if 'oldPass' in request.form:
+        if user.authenticate(session['username'], request.form['oldPass']):
+            resetPassword(session['username'], request.form['newPass'])
+            message = 'Your have successfully reset your password'
+        else:
+            message = 'Reset failed: Invalid Username Password Combination'
+
+    if 'rmTag' in request.args:
+        request.args.pop('rmTag')
+        for tag in request.args:
+            user.removeTag(session['username'], tag)
+        message = 'Tags are successfully removed.'
+
+    if 'rmLoc' in request.args:
+        request.args.pop('rmLoc')
+        for loc in request.args:
+            user.removeLoc(session['username'], loc)
+        message = 'Locations are successfully removed.'
+    return render_template("settings.html", li = True, msg = message, s = session['stats'])
 
 
 if __name__ == "__main__":

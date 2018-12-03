@@ -20,6 +20,9 @@
          <ul class="menu">
            <a href="/">Home</a>
            {% if li %}
+	   <li>
+             <a href="/settings">Settings</a>
+           </li>
            <li>
              <a href="/logout">Logout</a>
            </li>
@@ -36,13 +39,16 @@
 
        <div class="top-bar-right">
 
-         <form action="/">
+         <form action="/" method="GET">
            <ul class="menu">
              <li>
                <input type="text" name="search" placeholder="News Search">
              </li>
              <li>
-               <button type="submit" class="button round" name="button">Search</button>
+               <input type="text" name="searchLoc" placeholder="Weather Search">
+             </li>
+             <li>
+               <button type="submit" class="button" name="search">Search</button>
              </li>
            </ul>
          </form>
@@ -54,7 +60,7 @@
     {% endblock %}
     {% block footer %}
     <br><hr>
-    <p align="center">Made by Team happy feet.</p>
+    <p align="center">Copyright happy feet &copy 2018</p>
     {% endblock %}
    </body>
 </html>

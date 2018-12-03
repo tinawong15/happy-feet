@@ -27,6 +27,10 @@ The articles and forecast will be chosen by the user when they make their accoun
 BUGS, WHY, AND HOW
 ==========================
 
+- Trying to use the IP API only returns the localhost IP, 127.0.0.1
+	- Probably due to fact that we are running on the same server that we connect to
+	- Fixed by completely removing the ip.py file and using the Bing maps API
+
 --------------------------------------------------------------
 
 williamL, vincentL, rubinP, tinaW -- 2018-11-19 12:57
@@ -126,7 +130,30 @@ rubinP -- 2018-11-28 13:34
 	- Will add the ability to search for locations soon
 
 williamL -- 2018-11-29 18:00
-  - Added functionalities: add tag and location
+- Added functionalities: add tag and location
 
 tinaW -- 2018-11-30 12:56
 - Edited import statements to follow proper convention
+
+tinaW -- 2018-12-01 20:31
+- Added requirements.txt
+- Updated README to include instructions and dependencies
+
+williamL -- 2018-12-02 12:30
+- Added search location input on top bar
+- Added message for news search keyword
+
+rubinP -- 2018-12-02 22:20
+- Update forecast.py to only make one call to the api instead of multiple, saves time and data.
+- Update app.py to reflect that
+
+williamL -- 2018-12-3 9:15
+- Added link to settings on home page
+- Added message displayed when logged out, signed up, and logged in
+- Moved fortune to the left and added text while not logged in on the right
+
+williamL -- 2018-12-3 11:00
+- Added remove tag
+
+rubinP -- 2018-12-02 22:20
+- Implemented the sha256_hash library so we no longer store passwords in plaintext on the database

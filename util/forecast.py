@@ -18,53 +18,42 @@ def get_json_time(lat, lon, date):
     return data
 
 #utilizing the 'currently' dictionary, getting most up-to-date data
-def get_temp(lat, lon):
-    data = get_json(lat, lon)
+def get_temp(data):
     return data['currently']['temperature']
 
-def get_apparent_temp(lat, lon):
-    data = get_json(lat, lon)
+def get_apparent_temp(data):
     return data['currently']['apparentTemperature']
 
 #getting summaries based on timeframe
-def get_minutely_summary(lat, lon):
-    data = get_json(lat, lon)
+def get_minutely_summary(data):
     return data['minutely']['summary']
 
-def get_hourly_summary(lat, lon):
-    data = get_json(lat, lon)
+def get_hourly_summary(data):
     return data['hourly']['summary']
 
-def get_daily_summary(lat, lon):
-    data = get_json(lat, lon)
+def get_daily_summary(data):
     return data['daily']['summary']
 
 
 #different way(?) of getting future requests
 #hours < 49
-def get_future_hourly_summary(lat, lon, hours):
-    data = get_json(lat, lon)
+def get_future_hourly_summary(data):
     return data['hourly']['data'][hours]['summary']
 
-def get_future_hourly_temp(lat, lon, hours):
-    data = get_json(lat, lon)
+def get_future_hourly_temp(data, hours):
     return data['hourly']['data'][hours]['temperature']
 
-def get_future_hourly_apparent_temp(lat, lon, hours):
-    data = get_json(lat, lon)
+def get_future_hourly_apparent_temp(data, hours):
     return data['hourly']['data'][hours]['apparentTemperature']
 
 #days < 8
-def get_future_daily_summary(lat, lon, days):
-    data = get_json(lat, lon)
+def get_future_daily_summary(data, days):
     return data['daily']['data'][days]['summary']
 
-def get_future_daily_temp(lat, lon, days):
-    data = get_json(lat, lon)
+def get_future_daily_temp(data, days):
     return data['daily']['data'][days]['temperature']
 
-def get_future_daily_apparent_temp(lat, lon, days):
-    data = get_json(lat, lon)
+def get_future_daily_apparent_temp(data, days):
     return data['daily']['data'][days]['apparentTemperature']
 
 #print(get_temp(42.3601,-71.0589))

@@ -15,17 +15,29 @@
 
 					{% if m != '' %}
 					<div class="{{t}} callout">
-						<h4 style="text-align: center;">{{m}}</h4>
+						<h4 style="text-align: center;">{{m}}<em>{{k}}</em></h4>
 					</div>
 					<hr>
 					{% endif %}
 
 					<div class="grid-x grid-padding-x">
 
-						<div class="small-3 cell">
-							<h2>Weather</h2>
-							<h3>Weather for Brooklyn, NY</h3>
-							<h4> {{ daily_summary }} </h4>
+					  <div class="small-3 cell">
+					    <h4>Fortune says,</h4>
+							<blockquote>
+								{{q}}
+								<cite>
+									{{c}}
+								</cite>
+							</blockquote>
+							<hr>
+							<div class="primary callout">
+							<h3>Weather for {{l}}</h3>
+								<div class="secondary callout">
+									<p> {{ daily_summary }} </p>
+								</div>
+							</div>
+
 						</div>
 
 						<div class="medium-6 cell">
@@ -38,15 +50,9 @@
 						</div>
 
 						<div class="small-3 cell">
-							<h4>Fortune says,</h4>
-							<blockquote>
-								{{q}}
-								<cite>
-									{{c}}
-								</cite>
-							</blockquote>
+							
 							{% if li %}
-							<hr>
+							
 							<h4>Hello, <em>{{u}}</em>!</h4>
 							<h5>Tags:</h5>
 							<ul>
@@ -64,7 +70,7 @@
 							<ul>
 								<form action="/" method="GET">
 								{% for loc in s['locations']%}
-									<li><button type="submit" class="tiny button" name="search" value="{{loc}}">{{loc}}</button></li>
+									<li><button type="submit" class="tiny button" name="searchLoc" value="{{loc}}">{{loc}}</button></li>
 								{% endfor %}
 								</form>
 							</ul>
@@ -72,6 +78,10 @@
 								<input type="text" name="newLoc">
 								<button type="submit" class="small secondary button">Add Location</button>
 							</form>
+							{% else %}
+							<div class="warning callout">
+							  <h3>Login to display user info.</h3>
+							</div>
 							{% endif %}
 						</div>
 					</div>
