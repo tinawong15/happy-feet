@@ -4,9 +4,8 @@ from passlib.hash import sha256_crypt
 
 DB_FILE = "data/database.db"
 
-# creates table called users
 def createTable():
-    ''' This function creates Users table in database with column names id, username, and password.'''
+    ''' This function creates a Users table in database with column names username, password, security question, and answer.'''
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
     c.execute("CREATE TABLE IF NOT EXISTS users (user TEXT, password TEXT, question TEXT, answer TEXT)")
@@ -15,8 +14,9 @@ def createTable():
     db.commit()
     db.close()
 
-# if username already exists, returns false. otherwise inserts a row in users, returns true.
 def register(usr, psw, q, a):
+    '''This function adds the user to the database.
+    If username already exists, returns false. Otherwise, the function inserts a row in users and returns true.'''
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
     data = c.execute("SELECT * FROM users;")
@@ -31,8 +31,8 @@ def register(usr, psw, q, a):
     db.close()
     return True
 
-# returns true if username and password match, false otherwise
 def authenticate(usr, psw):
+    '''This function checks user login. If username and password match, the function returns true. The function returns false otherwise.'''
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
     data = c.execute("SELECT * FROM users")
@@ -113,8 +113,8 @@ def removeLoc(usr, tag):
     db.commit()
     db.close()
 
-# given a user, returns a list of all the saved tags for news
 def getTags(usr):
+    '''Given a user, this function returns a list of all the saved tags for news'''
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
     data = c.execute("SELECT * FROM " + usr + "_tags")
@@ -124,8 +124,8 @@ def getTags(usr):
     db.close()
     return l
 
-# given a user, returns a list of all the bookmarked cities for weather
 def getLocations(usr):
+    '''Given a user, this function returns a list of all the bookmarked cities for weather.'''
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
     data = c.execute("SELECT * FROM " + usr + "_locations")
@@ -135,8 +135,8 @@ def getLocations(usr):
     db.close()
     return l
 
-# given a user, returns a dictionary with all stats associated with the user
 def getStats(usr):
+    '''Given a user, this function returns a dictionary with all statistics associated with the user.'''
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
     data = c.execute("SELECT * FROM users")
