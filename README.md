@@ -32,10 +32,12 @@ $ . venv/bin/activate
 
 6. Edit the `keys.json` file in the `data` directory to add your keys corresponding to the correct API like so:
 ```
-"DARK_SKY_API": "<INSERT_YOUR_API_KEY>",
-"NEWS_API": "<INSERT_YOUR_API_KEY>",
-"BING_MAPS_API": "<INSERT_YOUR_API_KEY>",
-"FORTUNE_API": ""
+{
+  "DARK_SKY_API": "<INSERT_YOUR_API_KEY>",
+  "NEWS_API": "<INSERT_YOUR_API_KEY>",
+  "BING_MAPS_API": "<INSERT_YOUR_API_KEY>",
+  "FORTUNE_API": ""
+}
 ```
 
 7. Now, run the python file to start the Flask server:
