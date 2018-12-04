@@ -167,3 +167,7 @@ williamL -- 2018-12-03 22:30
 
 rubinP -- 2018-12-04 13:13
 - Update forecast.py to get more relevant data from Dark Sky API
+
+tinaW -- 2018-12-04 14:20
+- Updated keys.json with API keys
+- Updated README with instructions on adding API keys and Python libraries used
