@@ -174,4 +174,7 @@ tinaW -- 2018-12-04 14:20
 
 tinaW -- 2018-12-04 15:15
 - Implemented use of keys.json into util functions
+
+tinaW -- 2018-12-04 17:54
 - Added check to ensure that only logged in users can access the settings page
+- Updated design doc to reflect changes in database and deadlines
