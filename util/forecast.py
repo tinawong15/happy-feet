@@ -3,7 +3,10 @@ import urllib.request
 #import location
 
 API_LINK = 'https://api.darksky.net/forecast/'
-API_KEY = '65661444800d8180135cd4c62317a82c'
+with open('data/keys.json', 'r') as f:
+    api_dict = json.load(f)
+
+API_KEY = api_dict["DARK_SKY_API"]
 
 def get_json(lat, lon):
     '''This function gets json data based off location'''

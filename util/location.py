@@ -2,7 +2,10 @@ import json
 import urllib.request
 
 API_LINK = 'http://dev.virtualearth.net/REST/v1/Locations?query='
-API_KEY = 'AiIs8nS3kIqOkEJUD9uKnIpk4WecoekWcF39HhFxfaCutK2c652aCU5nqwAaeWFf'
+with open('data/keys.json', 'r') as f:
+    api_dict = json.load(f)
+
+API_KEY = api_dict["BING_MAPS_API"]
 
 def get_raw_data(location):
     '''This function gets the raw json data based of a search query'''

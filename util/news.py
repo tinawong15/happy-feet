@@ -2,7 +2,10 @@ import json
 import urllib.request
 
 API_LINK = 'https://newsapi.org/v2/top-headlines?'
-API_KEY = "a842f08935ec4c4f8cbfa0ca729fc2c1"
+with open('data/keys.json', 'r') as f:
+    api_dict = json.load(f)
+
+API_KEY = api_dict["NEWS_API"]
 
 def top_headlines_by_src(src):
     '''This function gets raw json data of top headlines by source'''
