@@ -80,7 +80,7 @@ def signup():
 
 @app.route('/signupauth', methods = ['POST'])
 def signupauth():
-    ''''''
+    '''This function checks the form on the signup page and calls register() to register the user into the database.'''
     usern = request.form['username']
     pswd0 = request.form['password0']
     pswd1 = request.form['password1']
@@ -103,10 +103,12 @@ def signupauth():
 
 @app.route('/login')
 def login():
+    '''This function renders the HTML template for the login page.'''
     return render_template('login.html', m = '')
 
 @app.route('/loginauth', methods = ['POST'])
 def loginauth():
+    '''This function calls authenticate() to check if the form's username and password match the database. If successful, this function redirects the user to the home page.'''
     username = request.form['username']
     password = request.form['password']
     type = 'alert'
@@ -129,6 +131,7 @@ def logout():
 
 @app.route("/settings", methods=['GET', 'POST'])
 def settings():
+    '''This function handles removing the user's tags and specified location and calls resetPassword() to allow the user to change their password through the form displayed.'''
     message = ''
     type = ''
     if 'username' in session:
