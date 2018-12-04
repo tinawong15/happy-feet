@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask, render_template, request, session, redirect, url_for
+from flask import Flask, render_template, request, session, redirect, url_for, flash
 
 #from passlib.hash import sha256_crypt
 from util import news, fortune, user, forecast, location
@@ -75,7 +75,7 @@ def home():
 
 @app.route('/signup')
 def signup():
-    '''takes user to signup page'''
+    '''This function renders the HTML template for the signup page.'''
     return render_template('signup.html', m = '')
 
 @app.route('/signupauth', methods = ['POST'])
@@ -131,37 +131,40 @@ def logout():
 def settings():
     message = ''
     type = ''
-    if 'oldPass' in request.form:
-        if user.authenticate(session['username'], request.form['oldPass']):
-            if len(request.form['newPass']) < 5:
-                message = 'New password is too short.'
-                type = 'alert'
+    if 'username' in session:
+        if 'oldPass' in request.form:
+            if user.authenticate(session['username'], request.form['oldPass']):
+                if len(request.form['newPass']) < 5:
+                    message = 'New password is too short.'
+                    type = 'alert'
+                else:
+                    user.resetPassword(session['username'], request.form['newPass'])
+                    message = 'Your have successfully reset your password'
+                    type = 'success'
             else:
-                user.resetPassword(session['username'], request.form['newPass'])
-                message = 'Your have successfully reset your password'
-                type = 'success'
-        else:
-            message = 'Reset failed: Invalid Username Password Combination'
-            type = 'alert'
+                message = 'Reset failed: Invalid Username Password Combination'
+                type = 'alert'
 
-    if 'rmTag' in request.args:
-        # request.args.pop('rmTag')
-        for tag in request.args:
-            if tag != 'rmTag':
-                user.removeTag(session['username'], tag)
-        message = 'Tags are successfully removed.'
-        type = 'success'
+        if 'rmTag' in request.args:
+            # request.args.pop('rmTag')
+            for tag in request.args:
+                if tag != 'rmTag':
+                    user.removeTag(session['username'], tag)
+            message = 'Tags are successfully removed.'
+            type = 'success'
 
-    if 'rmLoc' in request.args:
-        # request.args.pop('rmLoc')
-        for loc in request.args:
-            if loc != 'rmLoc':
-                user.removeLoc(session['username'], loc)
-        message = 'Locations are successfully removed.'
-        type = 'success'
-    session['stats'] = user.getStats(session['username'])
-    return render_template("settings.html", li = True, m = message, t = type, s = session['stats'])
-
+        if 'rmLoc' in request.args:
+            # request.args.pop('rmLoc')
+            for loc in request.args:
+                if loc != 'rmLoc':
+                    user.removeLoc(session['username'], loc)
+            message = 'Locations are successfully removed.'
+            type = 'success'
+        session['stats'] = user.getStats(session['username'])
+        return render_template("settings.html", li = True, m = message, t = type, s = session['stats'])
+    else:
+        flash("You must be logged in to see that page.")
+        return redirect(url_for('login'))
 
 if __name__ == "__main__":
     app.debug = True
