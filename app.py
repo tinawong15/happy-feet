@@ -53,12 +53,12 @@ def home():
         if 'newTag' in request.args:
             if not user.addTag(session['username'], request.args['newTag']):
                 message = 'Error: Tag already exists.'
-                type = 'warning'
+                type = 'alert'
 
         if 'newLoc' in request.args:
             if not user.addLoc(session['username'], request.args['newLoc']):
                 message = 'Error: Location already exists.'
-                type = 'warning'
+                type = 'alert'
 
         session['stats'] = user.getStats(session['username'])
 
@@ -74,7 +74,7 @@ def home():
 
 @app.route('/signup')
 def signup():
-    return render_template('signup.html', hasMsg = False)
+    return render_template('signup.html', m = '')
 
 @app.route('/signupauth', methods = ['POST'])
 def signupauth():
@@ -86,13 +86,13 @@ def signupauth():
     message = ''
     if len(usern) < 5:
         message = "You have entered an invalid username. Please try again."
-        return render_template('signup.html', hm = hasMsg, msg = message, t = type)
+        return render_template('signup.html', m = message, t = type)
     elif len(pswd0) < 5:
         message = "You have entered an invalid password. Please try again."
-        return render_template('signup.html', hm = hasMsg, msg = message, t = type)
+        return render_template('signup.html', m = message, t = type)
     elif pswd0 != pswd1:
         message = "Passwords do not match. Please try again."
-        return render_template('signup.html', hm = hasMsg, msg = message, t = type)
+        return render_template('signup.html', m = message, t = type)
     else:
         user.register(usern, pswd0, request.form['question'], request.form['answer'])
         session['message'] = 'You have successfully signed up.'
@@ -100,8 +100,7 @@ def signupauth():
 
 @app.route('/login')
 def login():
-    message = ''
-    return render_template('login.html', msg = message)
+    return render_template('login.html', m = '')
 
 @app.route('/loginauth', methods = ['POST'])
 def loginauth():
@@ -115,7 +114,7 @@ def loginauth():
         return redirect('/')
     else:
         message = "Invalid Username Password Combination"
-        return render_template('login.html', msg = message, t = type)
+        return render_template('login.html', m = message, t = type)
 
 @app.route('/logout')
 def logout():
@@ -131,23 +130,34 @@ def settings():
     type = ''
     if 'oldPass' in request.form:
         if user.authenticate(session['username'], request.form['oldPass']):
-            resetPassword(session['username'], request.form['newPass'])
-            message = 'Your have successfully reset your password'
+            if len(request.form['newPass']) < 5:
+                message = 'New password is too short.'
+                type = 'alert'
+            else:
+                user.resetPassword(session['username'], request.form['newPass'])
+                message = 'Your have successfully reset your password'
+                type = 'success'
         else:
             message = 'Reset failed: Invalid Username Password Combination'
+            type = 'alert'
 
     if 'rmTag' in request.args:
-        request.args.pop('rmTag')
+        # request.args.pop('rmTag')
         for tag in request.args:
-            user.removeTag(session['username'], tag)
+            if tag != 'rmTag':
+                user.removeTag(session['username'], tag)
         message = 'Tags are successfully removed.'
+        type = 'success'
 
     if 'rmLoc' in request.args:
-        request.args.pop('rmLoc')
+        # request.args.pop('rmLoc')
         for loc in request.args:
-            user.removeLoc(session['username'], loc)
+            if loc != 'rmLoc':
+                user.removeLoc(session['username'], loc)
         message = 'Locations are successfully removed.'
-    return render_template("settings.html", li = True, msg = message, s = session['stats'])
+        type = 'success'
+    session['stats'] = user.getStats(session['username'])
+    return render_template("settings.html", li = True, m = message, t = type, s = session['stats'])
 
 
 if __name__ == "__main__":

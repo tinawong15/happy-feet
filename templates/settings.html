@@ -14,14 +14,14 @@ Settings
 
   <div class="large-8 cell">
     <!-- <hr> -->
-    {% if msg != '' %}
+    {% if m != '' %}
     <div class="{{t}} callout">
-      <h4 style="text-align: center;">{{msg}}</h4>
+      <h4 style="text-align: center;">{{m}}</h4>
     </div>
     <hr>
     {% endif %}
     <div class="warning callout">
-      <h4>Password Change:</h4>
+      <h4>Password Change: Please enter at least 5 characters.</h4>
       <form action = "/settings" method = "POST">
         <input type = "password" name = "oldPass" placeholder="Original Password">
         <input type = "password" name = "newPass" placeholder="New Password">
@@ -58,7 +58,7 @@ Settings
                   </input>
                 <br>
               {% endfor %}
-              <button class="small alert button" type="submit" name="subLoc">Remove</button>
+              <button class="small alert button" type="submit" name="rmLoc">Remove</button>
               </form>
 
           </div>

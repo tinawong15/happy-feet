@@ -161,3 +161,6 @@ rubinP -- 2018-12-02 22:20
 tinaW -- 2018-12-03 20:08
 - Added docstrings to functions in util
 - Updated requirements.txt to add passlib library
+
+williamL -- 2018-12-03 22:30
+- Completed the functionalities of /settings

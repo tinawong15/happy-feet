@@ -5,14 +5,15 @@
 {% endblock %}
 
 {% block content %}
+<br><br><br>
 <h1 align="center"> LOGIN PAGE </h1>
 <hr>
 <div class="grid-x grid-padding-x">
   <div class="small-2 cell"></div>
   <div class="large-8 cell">
-    {% if msg != '' %}
+    {% if m != '' %}
     <div class="{{t}} callout">
-      <h4 style="text-align: center;">{{msg}}</h4>
+      <h4 style="text-align: center;">{{m}}</h4>
     </div>
     <hr>
     {% endif %}

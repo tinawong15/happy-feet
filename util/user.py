@@ -106,10 +106,10 @@ def removeTag(usr, tag):
     db.commit()
     db.close()
 
-def removeLoc(usr, tag):
+def removeLoc(usr, loc):
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
-    c.execute('DELETE FROM ' + usr + '_locations WHERE location = "' + tag + '"');
+    c.execute('DELETE FROM ' + usr + '_locations WHERE location = "' + loc + '"');
     db.commit()
     db.close()
 
