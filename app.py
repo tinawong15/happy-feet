@@ -11,7 +11,7 @@ app.secret_key = os.urandom(32)
 
 @app.route('/', methods=['GET'])
 def home():
-    '''takes user to homepage and displays news, weather, and a fortune'''
+    '''This function renders the template for the homepage and displays the latest news, weather, and a fortune. It also allows logged in users to add tags they would like to see.'''
     keyword = request.args.get('search', '')
     raw = news.top_headlines_by_keyword(keyword)
     articles = news.list_article_titles(raw)
