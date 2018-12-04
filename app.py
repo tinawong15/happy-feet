@@ -11,6 +11,7 @@ app.secret_key = os.urandom(32)
 
 @app.route('/', methods=['GET'])
 def home():
+    '''takes user to homepage and displays news, weather, and a fortune'''
     keyword = request.args.get('search', '')
     raw = news.top_headlines_by_keyword(keyword)
     articles = news.list_article_titles(raw)
@@ -74,10 +75,12 @@ def home():
 
 @app.route('/signup')
 def signup():
+    '''takes user to signup page'''
     return render_template('signup.html', m = '')
 
 @app.route('/signupauth', methods = ['POST'])
 def signupauth():
+    ''''''
     usern = request.form['username']
     pswd0 = request.form['password0']
     pswd1 = request.form['password1']
