@@ -1,7 +1,7 @@
 {
-    "Dark Sky API" : "65661444800d8180135cd4c62317a82c"
-    "News" : "a842f08935ec4c4f8cbfa0ca729fc2c1"
-    "Location" : "AiIs8nS3kIqOkEJUD9uKnIpk4WecoekWcF39HhFxfaCutK2c652aCU5nqwAaeWFf"
-    "Fortune" : ""
-    
+    "DARK_SKY_API": "65661444800d8180135cd4c62317a82c"
+    "NEWS_API": "a842f08935ec4c4f8cbfa0ca729fc2c1"
+    "BING_MAPS_API": "AiIs8nS3kIqOkEJUD9uKnIpk4WecoekWcF39HhFxfaCutK2c652aCU5nqwAaeWFf"
+    "FORTUNE_API": ""
+
 }

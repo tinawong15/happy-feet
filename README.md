@@ -28,16 +28,26 @@ $ . venv/bin/activate
 (venv) $ pip install -r requirements.txt
 ```
 
-5. Now, run the python file to start the Flask server:
+5. Procure API keys for the APIs listed by following the instructions [below](https://github.com/tinawong15/happy-feet#apis).
+
+6. Edit the `keys.json` file in the `data` directory to add your keys corresponding to the correct API like so:
+```
+"DARK_SKY_API": "<INSERT_YOUR_API_KEY>"
+"NEWS_API": "<INSERT_YOUR_API_KEY>"
+"BING_MAPS_API": "<INSERT_YOUR_API_KEY>"
+"FORTUNE_API": ""
+```
+
+7. Now, run the python file to start the Flask server:
 ```
 (venv) $ python app.py
 ```
 
-6. Open your web browser and open `localhost:5000`.
+8. Open your web browser and open `localhost:5000`.
 
-7. To terminate your server instance, type <kbd> CTRL </kbd> + <kbd> C </kbd>.
+9. To terminate your server instance, type <kbd> CTRL </kbd> + <kbd> C </kbd>.
 
-8. To deactivate your virtual environment, type `deactivate`.
+10. To deactivate your virtual environment, type `deactivate`.
 
 ## APIs
 - News API
@@ -67,7 +77,7 @@ $ . venv/bin/activate
      - The `json` library was used to parse through the JSON files requested from the APIs.
 - wheel
      - The `wheel` library works with the `flask` library. This is not a standard Python library, but is automatically imported when
-     `pip install -r requirements.txt` is run. 
+     `pip install -r requirements.txt` is run.
 - flask
      - The `flask` library allows the app to run on `localhost`. This is not a standard Python library, but is automatically imported when
      `pip install -r requirements.txt` is run.
