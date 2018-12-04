@@ -171,3 +171,6 @@ rubinP -- 2018-12-04 13:13
 tinaW -- 2018-12-04 14:20
 - Updated keys.json with API keys
 - Updated README with instructions on adding API keys and Python libraries used
+
+tinaW -- 2018-12-04 15:15
+- Implemented use of keys.json into util functions
