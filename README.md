@@ -9,7 +9,7 @@ UwU News is a website that displays the latest news articles, weather forecasts 
 ## Instructions to Run
 1. Clone this repository:
 ```
-$ git clone git@github.com:tinawong15/happy-feet.git
+$ git clone https://github.com/tinawong15/happy-feet.git
 ```
 
 2. Change your directory to go into your local copy of the repository:
@@ -39,7 +39,7 @@ $ . venv/bin/activate
 
 8. To deactivate your virtual environment, type `deactivate`.
 
-## Dependencies
+## APIs
 - News API
      - Procure an API key [here](https://newsapi.org/). After clicking on "Get API key" to register, an API key will be presented.
      - Use API key to request information from API.
@@ -59,3 +59,18 @@ $ . venv/bin/activate
      - no API key needed, but documentation is [here](http://yerkee.com/api/).
      - The API retrieves a random fortune cookie from any category and returns it as a JSON.
      - We used this API to request a random quote and the author of the quote to display on the home page of our site.  
+
+## Dependencies
+- urllib
+     - The `urllib` library was used to get the JSON files from the four APIs.
+- json
+     - The `json` library was used to parse through the JSON files requested from the APIs.
+- wheel
+     - The `wheel` library works with the `flask` library. This is not a standard Python library, but is automatically imported when
+     `pip install -r requirements.txt` is run. 
+- flask
+     - The `flask` library allows the app to run on `localhost`. This is not a standard Python library, but is automatically imported when
+     `pip install -r requirements.txt` is run.
+- passlib
+     - The `passlib` library was used to hash user passwords. This is not a standard Python library, but is automatically imported when
+     `pip install -r requirements.txt` is run.
