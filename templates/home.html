@@ -33,16 +33,11 @@ Home
 	  <hr>
 	  {% for l in fd %}
 	  <div class="primary callout">
-	    <h3>Weather for {{l}}</h3>
-	    <div class="secondary callout">
+		  <h3>Weather for {{l}} <br> Picked up by API as {{ loc }}
+		</h3>
+			    <div class="secondary callout">
 	      <p> {{ fd[l] }} </p>
 	    </div>
-
-	    <script>
-	      var skycons = new Skycons();
-	      skycons.add("icon1", Skycons.PARTLY_CLOUDY_DAY);
-	      skycons.play();
-	    </script>
 	  </div>
 	  {% endfor %}
 	</div>

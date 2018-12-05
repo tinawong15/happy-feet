@@ -107,6 +107,7 @@ def home():
             coordinates = location.get_coordinates(l)
             datum = forecast.get_json( coordinates[0], coordinates[1] )
             forecast_dict[l] = forecast.get_daily_summary(datum)
+            forecast_dict['name'] = location.get_name(l)
         except:
             forecast_dict[l] = "API ERROR for the DARK SKY API\nEither the API key is invalid or you put in an invalid location" 
 
@@ -116,7 +117,7 @@ def home():
         data = { 'No results found! Try again' : '/' }
 
     if 'username' in session:
-        return render_template('home.html', m = message, k = keyword, t = type, q = quote[0], c = quote[1], d = data, li = True, u = session['username'], s = session['stats'], fd = forecast_dict)
+        return render_template('home.html', m = message, k = keyword, t = type, q = quote[0], c = quote[1], d = data, li = True, u = session['username'], s = session['stats'], fd = forecast_dict, loc = forecast_dict['name'])
     else:
         return render_template('home.html', m = message, k = keyword, t = type, q = quote[0], c = quote[1], d = data, li = False, fd = forecast_dict)
 
