@@ -188,3 +188,7 @@ williamL -- 2018-12-04 20:45
 
 williamL -- 2018-12-05 9:25
 - Fixed app.py so that weather search works again
+
+rubinP -- 2018-12-05 11:12
+- Implement error handling in app.py - prevents enter site from crashing
+  when the API call fails for whatever reason 
