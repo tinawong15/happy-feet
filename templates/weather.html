@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block tile %}
+Weather For {{location}}
+{% endblock %}
+
+{% block content %}
+
+<div id="wrapper">
+
+  <div class="grid-x grid-padding-x">
+    <div class="large-12 cell">
+      <br><br><br>
+      <h1 align="center">Weather in {{location}}</h1>
+      <hr>
+
+      <div class="grid-x grid-padding-x">
+	{% for l in fd %}
+	<div class="primary callout">
+	  <h3>Weather for {{l}}</h3>
+	  <div class="secondary callout">
+	    <p> {{ fd[l] }} </p>
+	  </div>
+
+	   <script>
+	      var skycons = new Skycons();
+	      skycons.add("icon1", Skycons.PARTLY_CLOUDY_DAY);
+	      skycons.play();
+	    </script>
+	  
+	</div>
+	{% endfor %}
+      </div>
+
+      <div class="medium-6 cell">
+	
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+{% endblock %}
