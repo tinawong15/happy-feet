@@ -161,7 +161,6 @@ def loginauth():
 def logout():
     '''This function removes the username from the session, logging the user out. Redirects user to home page.'''
     session.pop('username') # ends session
-    session.pop('location')
     session['message'] = 'You have successfully logged out.'
     return redirect('/')
 
