@@ -85,8 +85,11 @@ def home():
     if 'searchLoc' in request.args and request.args['searchLoc'] != '':
         loc.append(request.args['searchLoc'])
 
-    elif 'username' not in session or session['stats']['locations'] == []:
+    elif 'username' not in session:
+        loc.append('New York')
+    elif session['stats']['locations'] == []:
         loc.append('ERROR')
+
         #coordinates = location.get_coordinates(loc)
         #datum = forecast.get_json( coordinates[0], coordinates[1] )
         #forecast_dict[loc] = forecast.get_daily_summary(datum)

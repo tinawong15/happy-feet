@@ -18,5 +18,10 @@ def get_coordinates(location):
     data = get_raw_data(location)
     return data['resourceSets'][0]['resources'][0]['point']['coordinates']
 
+def get_name(location):
+    '''This function gets the name based off a location search (uses the first result)'''
+    data = get_raw_data(location)
+    return data['resourceSets'][0]['resources'][0]['name']
+
 #print(get_raw_data('brooklyn'))
 #print(get_coordinates('brooklyn'))
