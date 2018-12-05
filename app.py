@@ -13,11 +13,19 @@ app.secret_key = os.urandom(32)
 def home():
     '''This function renders the template for the homepage and displays the latest news, weather, and a fortune. It also allows logged in users to add tags they would like to see.'''
     keyword = request.args.get('search', '')
-    raw = news.top_headlines_by_keyword(keyword)
-    articles = news.list_article_titles(raw)
-    links = news.list_article_urls(raw)
-    dictionary = {}
 
+    #try-except block added in case the API calls fail
+    try:
+        raw = news.top_headlines_by_keyword(keyword)
+        articles = news.list_article_titles(raw)
+        links = news.list_article_urls(raw)
+        dictionary = {}
+    except:
+        raw = {"Error pulling articles from API - possible API key error!" : ""}
+        dictionary = {"Error pulling articles from API - possible API key error!" : ""}
+        articles = {}
+        links = {}
+    
     if 'message' in session:
         message = session['message']
         type = 'success'
@@ -78,10 +86,15 @@ def home():
             loc.append(l)
             # print('[' + loc + ']')
 
+    #for each location in the user's database, loop thru and get info for it
+    #if there are any errors, prints such
     for l in loc:
-        coordinates = location.get_coordinates(l)
-        datum = forecast.get_json( coordinates[0], coordinates[1] )
-        forecast_dict[l] = forecast.get_daily_summary(datum)
+        try:
+            coordinates = location.get_coordinates(l)
+            datum = forecast.get_json( coordinates[0], coordinates[1] )
+            forecast_dict[l] = forecast.get_daily_summary(datum)
+        except:
+            forecast_dict[l] = "API ERROR for the DARK SKY API"            
 
     if dictionary:
         data = dictionary
@@ -104,9 +117,11 @@ def signupauth():
     usern = request.form['username']
     pswd0 = request.form['password0']
     pswd1 = request.form['password1']
+
     hasMsg = True
     type = 'alert'
     message = ''
+
     if len(usern) < 5:
         message = "You have entered an invalid username. Please try again."
         return render_template('signup.html', m = message, t = type)

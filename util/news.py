@@ -2,6 +2,7 @@ import json
 import urllib.request
 
 API_LINK = 'https://newsapi.org/v2/top-headlines?'
+
 with open('data/keys.json', 'r') as f:
     api_dict = json.load(f)
 
