@@ -178,3 +178,10 @@ tinaW -- 2018-12-04 15:15
 tinaW -- 2018-12-04 17:54
 - Added check to ensure that only logged in users can access the settings page
 - Updated design doc to reflect changes in database and deadlines
+
+williamL -- 2018-12-04 20:45
+- Changed the display of weathers:
+  - no longer click on tags to search
+  - now displays weather for all tags
+- Fixed bug:
+  - adding a city with two or more words no longer causes error

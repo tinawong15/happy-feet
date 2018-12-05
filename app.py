@@ -38,17 +38,17 @@ def home():
     #print(dictionary)
 
     quote = fortune.getQuote()
-    if 'searchLoc' in request.args and request.args['searchLoc'] != '':
-        # print(request.args['searchLoc'])
-        session['location'] = request.args['searchLoc']
-
-    elif 'location' not in session:
-        session['location'] = 'Manhattan'
-
-    print(session['location'])
-    coordinates = location.get_coordinates(session['location'])
-
-    forecast_data = forecast.get_json(coordinates[0], coordinates[1])
+    # if 'searchLoc' in request.args and request.args['searchLoc'] != '':
+    #     # print(request.args['searchLoc'])
+    #     session['location'] = request.args['searchLoc']
+    #
+    # elif 'location' not in session:
+    #     session['location'] = 'Manhattan'
+    #
+    # print(session['location'])
+    # coordinates = location.get_coordinates(session['location'])
+    #
+    # forecast_data = forecast.get_json(coordinates[0], coordinates[1])
 
     if 'username' in session:
         if 'newTag' in request.args:
@@ -62,6 +62,19 @@ def home():
                 type = 'alert'
 
         session['stats'] = user.getStats(session['username'])
+        
+    forecast_dict = {}
+    if 'username' not in session or session['stats']['locations'] == []:
+        loc = 'Manhattan'
+        coordinates = location.get_coordinates(loc)
+        datum = forecast.get_json( coordinates[0], coordinates[1] )
+        forecast_dict[loc] = forecast.get_daily_summary(datum)
+    else:
+        for loc in session['stats']['locations']:
+            # print('[' + loc + ']')
+            coordinates = location.get_coordinates(loc)
+            datum = forecast.get_json( coordinates[0], coordinates[1] )
+            forecast_dict[loc] = forecast.get_daily_summary(datum)
 
     if dictionary:
         data = dictionary
@@ -69,9 +82,9 @@ def home():
         data = { 'No results found! Try again' : '/' }
 
     if 'username' in session:
-        return render_template('home.html', m = message, k = keyword, t = type, q = quote[0], c = quote[1], d = data, li = True, u = session['username'], s = session['stats'], l = session['location'], daily_summary = forecast.get_daily_summary(forecast_data))
+        return render_template('home.html', m = message, k = keyword, t = type, q = quote[0], c = quote[1], d = data, li = True, u = session['username'], s = session['stats'], fd = forecast_dict)
     else:
-        return render_template('home.html', m = message, k = keyword, t = type, q = quote[0], c = quote[1], d = data, li = False, l = session['location'], daily_summary = forecast.get_daily_summary(forecast_data))
+        return render_template('home.html', m = message, k = keyword, t = type, q = quote[0], c = quote[1], d = data, li = False, fd = forecast_dict)
 
 @app.route('/signup')
 def signup():
@@ -115,6 +128,7 @@ def loginauth():
     message = ''
     if user.authenticate(username, password):
         session['username'] = username
+        session['stats'] = user.getStats(username)
         session['message'] = 'You have successfully logged in.'
         return redirect('/')
     else:

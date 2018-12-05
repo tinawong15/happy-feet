@@ -31,20 +31,20 @@
 								</cite>
 							</blockquote>
 							<hr>
+							{% for l in fd %}
 							<div class="primary callout">
-							<h3>Weather for {{l}}</h3>
+								<h3>Weather for {{l}}</h3>
 								<div class="secondary callout">
-									<p> {{ daily_summary }} </p>
+									<p> {{ fd[l] }} </p>
 								</div>
+
 								<script>
 									var skycons = new Skycons();
 									skycons.add("icon1", Skycons.PARTLY_CLOUDY_DAY);
 									skycons.play();
 								</script>
-
-
 							</div>
-
+							{% endfor %}
 						</div>
 
 						<div class="medium-6 cell">
@@ -57,15 +57,15 @@
 						</div>
 
 						<div class="small-3 cell">
-							
+
 							{% if li %}
-							
+
 							<h4>Hello, <em>{{u}}</em>!</h4>
-							<h5>Tags:</h5>
+							<h5>Tags: click on them to search for news</h5>
 							<ul>
 								<form action="/" method="GET">
 								{% for tag in s['tags']%}
-									<li><button type="submit" class="tiny button" name="search" value="{{tag}}">{{tag}}</button></li>
+									<li><button type="submit" class="large label" name="search" value="{{tag}}">{{tag}}</button></li>
 								{% endfor %}
 								</form>
 							</ul>
@@ -73,11 +73,11 @@
 								<input type="text" name="newTag">
 								<button type="submit" class="small secondary button">Add Tag</button>
 							</form>
-							<h5>Locations:</h5>
+							<h5>Locations: weathers displayed on the left</h5>
 							<ul>
 								<form action="/" method="GET">
 								{% for loc in s['locations']%}
-									<li><button type="submit" class="tiny button" name="searchLoc" value="{{loc}}">{{loc}}</button></li>
+									<li><span class="large label">{{loc}}</span></li>
 								{% endfor %}
 								</form>
 							</ul>
