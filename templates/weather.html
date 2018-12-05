@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block tile %}
-Weather For {{location}}
+Weather For {{l}}
 {% endblock %}
 
 {% block content %}
@@ -11,7 +11,7 @@ Weather For {{location}}
   <div class="grid-x grid-padding-x">
     <div class="large-12 cell">
       <br><br><br>
-      <h1 align="center">Weather in {{location}}</h1>
+      <h1 align="center">Weather for {{l}}</h1>
       <hr>
 
       <div class="grid-x grid-padding-x">
@@ -33,7 +33,12 @@ Weather For {{location}}
       </div>
 
       <div class="medium-6 cell">
-	
+	<div class="primary callout">
+	  insert weather stuff
+	</div>
+	<div class="primary callout">
+	  insert stuff for the week
+	</div>
       </div>
       
     </div>
