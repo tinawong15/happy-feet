@@ -185,3 +185,6 @@ williamL -- 2018-12-04 20:45
   - now displays weather for all tags
 - Fixed bug:
   - adding a city with two or more words no longer causes error
+
+williamL -- 2018-12-05 9:25
+- Fixed app.py so that weather search works again

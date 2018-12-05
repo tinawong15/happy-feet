@@ -64,17 +64,24 @@ def home():
         session['stats'] = user.getStats(session['username'])
         
     forecast_dict = {}
-    if 'username' not in session or session['stats']['locations'] == []:
-        loc = 'Manhattan'
-        coordinates = location.get_coordinates(loc)
-        datum = forecast.get_json( coordinates[0], coordinates[1] )
-        forecast_dict[loc] = forecast.get_daily_summary(datum)
+    loc = []
+    if 'searchLoc' in request.args and request.args['searchLoc'] != '':
+        loc.append(request.args['searchLoc'])
+        
+    elif 'username' not in session or session['stats']['locations'] == []:
+        loc.append('New York')
+        #coordinates = location.get_coordinates(loc)
+        #datum = forecast.get_json( coordinates[0], coordinates[1] )
+        #forecast_dict[loc] = forecast.get_daily_summary(datum)
     else:
-        for loc in session['stats']['locations']:
+        for l in session['stats']['locations']:
+            loc.append(l)
             # print('[' + loc + ']')
-            coordinates = location.get_coordinates(loc)
-            datum = forecast.get_json( coordinates[0], coordinates[1] )
-            forecast_dict[loc] = forecast.get_daily_summary(datum)
+
+    for l in loc:
+        coordinates = location.get_coordinates(l)
+        datum = forecast.get_json( coordinates[0], coordinates[1] )
+        forecast_dict[l] = forecast.get_daily_summary(datum)
 
     if dictionary:
         data = dictionary
