@@ -25,7 +25,7 @@ def home():
         dictionary = {"Error pulling articles from API - possible API key error!" : ""}
         articles = {}
         links = {}
-    
+
     if 'message' in session:
         message = session['message']
         type = 'success'
@@ -63,19 +63,25 @@ def home():
             if not user.addTag(session['username'], request.args['newTag']):
                 message = 'Error: Tag already exists.'
                 type = 'alert'
+            if request.args['newTag'] == '':
+                message = 'Tag cannot be empty.'
+                type = 'alert'
 
         if 'newLoc' in request.args:
             if not user.addLoc(session['username'], request.args['newLoc']):
                 message = 'Error: Location already exists.'
                 type = 'alert'
+            if request.args['newLoc'] == '':
+                message = 'Location cannot be empty.'
+                type = 'alert'
 
         session['stats'] = user.getStats(session['username'])
-        
+
     forecast_dict = {}
     loc = []
     if 'searchLoc' in request.args and request.args['searchLoc'] != '':
         loc.append(request.args['searchLoc'])
-        
+
     elif 'username' not in session or session['stats']['locations'] == []:
         loc.append('New York')
         #coordinates = location.get_coordinates(loc)
@@ -94,7 +100,7 @@ def home():
             datum = forecast.get_json( coordinates[0], coordinates[1] )
             forecast_dict[l] = forecast.get_daily_summary(datum)
         except:
-            forecast_dict[l] = "API ERROR for the DARK SKY API"            
+            forecast_dict[l] = "API ERROR for the DARK SKY API"
 
     if dictionary:
         data = dictionary
