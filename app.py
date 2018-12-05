@@ -79,11 +79,12 @@ def home():
 
     forecast_dict = {}
     loc = []
+
     if 'searchLoc' in request.args and request.args['searchLoc'] != '':
         loc.append(request.args['searchLoc'])
 
     elif 'username' not in session or session['stats']['locations'] == []:
-        loc.append('New York')
+        loc.append('ERROR')
         #coordinates = location.get_coordinates(loc)
         #datum = forecast.get_json( coordinates[0], coordinates[1] )
         #forecast_dict[loc] = forecast.get_daily_summary(datum)
@@ -96,11 +97,13 @@ def home():
     #if there are any errors, prints such
     for l in loc:
         try:
+            if l == 'ERROR':
+                forecast_dict[l] = 'Invalid location! No results found!'
             coordinates = location.get_coordinates(l)
             datum = forecast.get_json( coordinates[0], coordinates[1] )
             forecast_dict[l] = forecast.get_daily_summary(datum)
         except:
-            forecast_dict[l] = "API ERROR for the DARK SKY API"
+            forecast_dict[l] = "API ERROR for the DARK SKY API\nEither the API key is invalid or you put in an invalid location" 
 
     if dictionary:
         data = dictionary
