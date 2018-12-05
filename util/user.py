@@ -46,6 +46,7 @@ def authenticate(usr, psw):
 
 # trivial
 def resetPassword(usr, psw):
+    '''This function updates the user's password in the database.'''
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
     params = (sha256_crypt.hash(psw), usr)
@@ -54,6 +55,7 @@ def resetPassword(usr, psw):
     db.close()
 
 def getQuestion(usr):
+    '''This function gets the security question that the user entered when they signed up from the database .'''
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
     data = c.execute("SELECT * FROM users")
@@ -65,6 +67,7 @@ def getQuestion(usr):
     return -1
 
 def checkAnswer(usr, ans):
+    '''This function returns the answer to the security question from the database based on the user requested.'''
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
     data = c.execute("SELECT * FROM users")
@@ -74,6 +77,7 @@ def checkAnswer(usr, ans):
             return row[3] == ans
 
 def addTag(usr, tag):
+    '''This function adds the tag selected by the user to the user's tag table in the database.'''
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
     data = c.execute('SELECT * FROM ' + usr + '_tags')
@@ -87,6 +91,7 @@ def addTag(usr, tag):
     return True
 
 def addLoc(usr, loc):
+    '''This function adds the location selected by the user to the user's location table in the database.'''
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
     data = c.execute('SELECT * FROM ' + usr + '_locations')
@@ -100,6 +105,7 @@ def addLoc(usr, loc):
     return True
 
 def removeTag(usr, tag):
+    '''This function removes the location selected by the user from the user's location table in the database.'''
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
     c.execute('DELETE FROM ' + usr + '_tags WHERE tag = "' + tag + '"');
@@ -107,6 +113,7 @@ def removeTag(usr, tag):
     db.close()
 
 def removeLoc(usr, loc):
+    '''This function removes the tag selected by the user from the user's tag table in the database.'''
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
     c.execute('DELETE FROM ' + usr + '_locations WHERE location = "' + loc + '"');
