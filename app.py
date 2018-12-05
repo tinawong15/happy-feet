@@ -60,20 +60,22 @@ def home():
 
     if 'username' in session:
         if 'newTag' in request.args:
-            if not user.addTag(session['username'], request.args['newTag']):
-                message = 'Error: Tag already exists.'
-                type = 'alert'
             if request.args['newTag'] == '':
                 message = 'Tag cannot be empty.'
                 type = 'alert'
+            else:
+                if not user.addTag(session['username'], request.args['newTag']):
+                    message = 'Error: Tag already exists.'
+                    type = 'alert'
 
         if 'newLoc' in request.args:
-            if not user.addLoc(session['username'], request.args['newLoc']):
-                message = 'Error: Location already exists.'
-                type = 'alert'
             if request.args['newLoc'] == '':
                 message = 'Location cannot be empty.'
                 type = 'alert'
+            else:
+                if not user.addLoc(session['username'], request.args['newLoc']):
+                    message = 'Error: Location already exists.'
+                    type = 'alert'
 
         session['stats'] = user.getStats(session['username'])
 
