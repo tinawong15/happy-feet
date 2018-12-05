@@ -192,3 +192,8 @@ williamL -- 2018-12-05 9:25
 rubinP -- 2018-12-05 11:12
 - Implement error handling in app.py - prevents enter site from crashing
   when the API call fails for whatever reason 
+
+rubinP -- 2018-12-05 13:16
+- Implement debugging features on home.html to see what the location.py returns as a name
+	- Discovered some funny sounding locations in the world as a result. Thanks Bing!
+- Take care of default case handling when no one is logged in or when the search is invalid 
