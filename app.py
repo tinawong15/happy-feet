@@ -250,8 +250,7 @@ def weather(lo):
         #datum = forecast.get_json( coordinates[0], coordinates[1] )
         #forecast_dict[loc] = forecast.get_daily_summary(datum)
     else:
-        for l in session['stats']['locations']:
-            loc.append(l)
+        loc.append(lo)
             # print('[' + loc + ']')
 
     #for each location in the user's database, loop thru and get info for it
@@ -260,9 +259,6 @@ def weather(lo):
         coordinates = location.get_coordinates(l)
         datum = forecast.get_json( coordinates[0], coordinates[1] )
         forecast_dict[l] = forecast.get_daily_summary(datum)
-
-    quote = fortune.getQuote()
-
     coor = location.get_coordinates(lo)
     data = forecast.get_json( coor[0], coor[1] )
     ds = forecast.get_daily_summary(data)
@@ -286,7 +282,7 @@ def weather(lo):
         fdpt.append(forecast.get_future_daily_percipitation_type(data, i))
     '''
 
-    return render_template('weather.html', lo = lo, m = message, k = keyword, t = type,  q = quote[0], c = quote[1], fd = forecast_dict, ct = ct, at = at, ds = ds, fds = fds, fdt = fdt, fdat = fdat, fdpc = fdpc, fdpt = fdpt)
+    return render_template('weather.html', lo = lo, m = message, k = keyword, t = type,  fd = forecast_dict, ct = ct, at = at, ds = ds, fds = fds, fdt = fdt, fdat = fdat, fdpc = fdpc, fdpt = fdpt)
 
 @app.route('/forgetpass')
 def forgetpass():

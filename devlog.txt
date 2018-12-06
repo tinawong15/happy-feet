@@ -203,4 +203,7 @@ tinaW -- 2018-12-05 13:24
 - Added all docstrings
 
 tinaW -- 2018-12-06 09:43
-- Fixed issues with weather page
+- Fixed issues with weather page about getting weather from location
+- Added link from home to weather page
+- Removed unnecessary display from weather.html
+- TODO: future weather will not show
