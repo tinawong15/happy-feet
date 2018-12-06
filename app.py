@@ -220,8 +220,8 @@ def settings():
         flash("You must be logged in to see that page.")
         return redirect(url_for('login'))
 
-@app.route("/forecast/<location>", methods = ['GET', 'POST'])
-def forecast(location):
+@app.route("weather/<location>", methods = ['GET', 'POST'])
+def weather(location):
     keyword =  request.args.get('search', '')
     if 'message' in session:
         message = session['message']
