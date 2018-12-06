@@ -207,3 +207,7 @@ tinaW -- 2018-12-06 09:43
 - Added link from home to weather page
 - Removed unnecessary display from weather.html
 - TODO: future weather will not show
+
+tinaW -- 2018-12-06 14:24
+- Fixed navbar login on weather page
+- Future weather now shows up except precipitation type

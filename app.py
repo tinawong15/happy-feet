@@ -273,17 +273,15 @@ def weather(lo):
     fdat = []
     fdpc = []
     fdpt = []
-
-    '''
-    something wrong with days in forecast.py
     i = 1
     while(i < 8):
         fds.append(forecast.get_future_daily_summary(data, i))
-        fdt.append(forecast.get_future_daily_temp(data, i))
-        fdat.append(forecast.get_future_daily_apparent_temp(data, i))
-        fdpc.append(forecast.get_future_daily_percipitation_chance(data, i))
-        fdpt.append(forecast.get_future_daily_percipitation_type(data, i))
-    '''
+        fdt.append(forecast.get_future_daily_temp_high(data, i))
+        fdat.append(forecast.get_future_daily_temp_low(data, i))
+        fdpc.append(forecast.get_future_daily_precipitation_chance(data, i))
+        # fdpt.append(forecast.get_future_daily_precipitation_type(data, i))
+        i += 1
+
     if 'username' in session:
         return render_template('weather.html', li=True, lo = lo, m = message, k = keyword, t = type,  fd = forecast_dict, ct = ct, at = at, ds = ds, fds = fds, fdt = fdt, fdat = fdat, fdpc = fdpc, fdpt = fdpt)
     else:
