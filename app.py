@@ -26,13 +26,14 @@ def home():
         articles = {}
         links = {}
 
+    message = ''
+    type = ''
+
     if 'message' in session:
         message = session['message']
         type = 'success'
         session.pop('message')
-    else:
-        message = ''
-        type = ''
+
 
     if keyword != '':
         message = 'New Search Keyword: '
@@ -85,10 +86,8 @@ def home():
     if 'searchLoc' in request.args and request.args['searchLoc'] != '':
         loc.append(request.args['searchLoc'])
 
-    elif 'username' not in session:
+    elif 'username' not in session or session['stats']['locations'] == []:
         loc.append('New York')
-    elif session['stats']['locations'] == []:
-        loc.append('ERROR')
 
         #coordinates = location.get_coordinates(loc)
         #datum = forecast.get_json( coordinates[0], coordinates[1] )
@@ -101,15 +100,15 @@ def home():
     #for each location in the user's database, loop thru and get info for it
     #if there are any errors, prints such
     for l in loc:
-        try:
-            if l == 'ERROR':
-                forecast_dict[l] = 'Invalid location! No results found!'
-                coordinates = location.get_coordinates(l)
-                datum = forecast.get_json( coordinates[0], coordinates[1] )
-                forecast_dict[l] = forecast.get_daily_summary(datum)
-                forecast_dict['name'] = location.get_name(l)
-        except:
-            forecast_dict[l] = "API ERROR for the DARK SKY API\nEither the API key is invalid or you put in an invalid location" 
+        # try:
+        #     if l == 'ERROR':
+        #         forecast_dict[l] = 'Invalid location! No results found!'
+        coordinates = location.get_coordinates(l)
+        datum = forecast.get_json( coordinates[0], coordinates[1] )
+        forecast_dict[l] = forecast.get_daily_summary(datum)
+        # forecast_dict['name'] = location.get_name(l)
+        # except:
+        #     forecast_dict[l] = "API ERROR for the DARK SKY API\nEither the API key is invalid or you put in an invalid location"
 
     if dictionary:
         data = dictionary
@@ -118,7 +117,7 @@ def home():
 
     if 'username' in session:
         print(forecast_dict)
-        return render_template('home.html', m = message, k = keyword, t = type, q = quote[0], c = quote[1], d = data, li = True, u = session['username'], s = session['stats'], fd = forecast_dict, loc = forecast_dict['name'])
+        return render_template('home.html', m = message, k = keyword, t = type, q = quote[0], c = quote[1], d = data, li = True, u = session['username'], s = session['stats'], fd = forecast_dict)
     else:
         print(forecast_dict)
         return render_template('home.html', m = message, k = keyword, t = type, q = quote[0], c = quote[1], d = data, li = False, fd = forecast_dict)
@@ -236,7 +235,7 @@ def forecast(location):
         message = 'New Search Keyword: '
         type = 'success'
     quote = fortune.getQuote()
-        
+
     if 'username' in session:
         if 'newTag' in request.args:
             if request.args['newTag'] == '':
@@ -288,8 +287,8 @@ def forecast(location):
                 forecast_dict[l] = forecast.get_daily_summary(datum)
                 forecast_dict['name'] = location.get_name(l)
         except:
-            forecast_dict[l] = "API ERROR for the DARK SKY API\nEither the API key is invalid or you put in an invalid location" 
-   
+            forecast_dict[l] = "API ERROR for the DARK SKY API\nEither the API key is invalid or you put in an invalid location"
+
     if 'username' in session:
         return render_template('forecast.html', m = message, k = keyword, t = type, q = quote[0], c = quote[1], li = True, u = session['username'], s = session['stats'], l = session['location'], daily_summary = forecast.get_daily_summary(forecast_data))
     else:

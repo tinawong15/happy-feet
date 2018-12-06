@@ -45,9 +45,11 @@ Home
 	<div class="medium-6 medium-6 large-6 cell">
 
 	  {% for key, value in d.items() %}
-	  <div class="primary callout">
-	    <a href="{{ value }}">{{ key }}</a>
-	  </div>
+      {% if key != '' %}
+  	  <div class="primary callout">
+  	    <a href="{{ value }}">{{ key }}</a>
+  	  </div>
+      {% endif %}
 	  {% endfor %}
 	</div>
 
