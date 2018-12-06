@@ -259,11 +259,10 @@ def weather(lo):
         coordinates = location.get_coordinates(l)
         datum = forecast.get_json( coordinates[0], coordinates[1] )
         forecast_dict[l] = forecast.get_daily_summary(datum)
-    print(lo)
+
     coor = location.get_coordinates(lo)
-    print(coor)
     data = forecast.get_json( coor[0], coor[1] )
-    print(data)
+
     ds = forecast.get_daily_summary(data)
     ct = forecast.get_temp(data)
     at = forecast.get_apparent_temp(data)
