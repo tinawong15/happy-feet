@@ -220,8 +220,8 @@ def settings():
         flash("You must be logged in to see that page.")
         return redirect(url_for('login'))
 
-@app.route("/weather/<location>", methods = ['GET', 'POST'])
-def weather(location):
+@app.route("/weather/<lo>", methods = ['GET', 'POST'])
+def weather(lo):
     keyword =  request.args.get('search', '')
     if 'message' in session:
         message = session['message']
@@ -234,29 +234,7 @@ def weather(location):
     if keyword != '':
         message = 'New Search Keyword: '
         type = 'success'
-    quote = fortune.getQuote()
-
-    if 'username' in session:
-        if 'newTag' in request.args:
-            if request.args['newTag'] == '':
-                message = 'Tag cannot be empty.'
-                type = 'alert'
-            else:
-                if not user.addTag(session['username'], request.args['newTag']):
-                    message = 'Error: Tag already exists.'
-                    type = 'alert'
-
-        if 'newLoc' in request.args:
-            if request.args['newLoc'] == '':
-                message = 'Location cannot be empty.'
-                type = 'alert'
-            else:
-                if not user.addLoc(session['username'], request.args['newLoc']):
-                    message = 'Error: Location already exists.'
-                    type = 'alert'
-
-        session['stats'] = user.getStats(session['username'])
-
+    
     forecast_dict = {}
     loc = []
 
@@ -279,20 +257,34 @@ def weather(location):
     #for each location in the user's database, loop thru and get info for it
     #if there are any errors, prints such
     for l in loc:
-        try:
-            if l == 'ERROR':
-                forecast_dict[l] = 'Invalid location! No results found!'
-                coordinates = location.get_coordinates(l)
-                datum = forecast.get_json( coordinates[0], coordinates[1] )
-                forecast_dict[l] = forecast.get_daily_summary(datum)
-                forecast_dict['name'] = location.get_name(l)
-        except:
-            forecast_dict[l] = "API ERROR for the DARK SKY API\nEither the API key is invalid or you put in an invalid location"
+        coordinates = location.get_coordinates(l)
+        datum = forecast.get_json( coordinates[0], coordinates[1] )
+        forecast_dict[l] = forecast.get_daily_summary(datum)
 
-    if 'username' in session:
-        return render_template('forecast.html', m = message, k = keyword, t = type, q = quote[0], c = quote[1], li = True, u = session['username'], s = session['stats'], l = session['location'], daily_summary = forecast.get_daily_summary(forecast_data))
-    else:
-        return render_template('forecast.html', m = message, k = keyword, t = type, q = quote[0], c = quote[1], li = False, l = session['location'], daily_summary = forecast.get_daily_summary(forecast_data))
+    coor = location.get_coordinates(lo)
+    data = forecast.get_json( coor[0], coor[1] )
+    ds = forecast.get_daily_summary(data)
+    ct = forecast.get_temp(data)
+    at = forecast.get_apparent_temp(data)
+
+    fds = []
+    fdt = []
+    fdat = []
+    fdpc = []
+    fdpt = []
+
+    '''
+    something wrong with days in forecast.py
+    i = 1
+    while(i < 8):
+        fds.append(forecast.get_future_daily_summary(data, i))
+        fdt.append(forecast.get_future_daily_temp(data, i))
+        fdat.append(forecast.get_future_daily_apparent_temp(data, i))
+        fdpc.append(forecast.get_future_daily_percipitation_chance(data, i))
+        fdpt.append(forecast.get_future_daily_percipitation_type(data, i))
+    '''
+    
+    return render_template('weather.html', m = message, k = keyword, t = type, fd = forecast_dict, ct = ct, at = at, ds = ds, fds = fds, fdt = fdt, fdat = fdat, fdpc = fdpc, fdpt = fdpt)
 
 if __name__ == "__main__":
     app.debug = True

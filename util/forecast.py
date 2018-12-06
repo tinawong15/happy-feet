@@ -91,7 +91,7 @@ def get_future_daily_icon(data, days):
     '''This function gets the future daily icon for up to 7 days'''
     return data['daily']['data'][days]['icon']
 
-def get_future_daily_preciptiation_chance(data, days):
+def get_future_daily_precipitation_chance(data, days):
     '''This function gets the future daily precipitation chance for up to 7 days'''
     return data['daily']['data'][days]['precipProbability']
 
