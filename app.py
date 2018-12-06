@@ -288,17 +288,34 @@ def weather(lo):
 def forgetpass():
     return render_template('forgetpass.html', m = '')
 
-@app.route('/resetpass', methods=['POST'])
+@app.route('/resetpass', methods = ['POST'])
 def resetpass():
-    usr = request.form['username']
-    question = user.getQuestion(usr)
+    session['usr'] = request.form['username']
+    session['question'] = user.getQuestion(session['usr'])
     message = ''
     type = ''
-    if question == -1:
+    if session['question'] == -1:
         message = 'Username does not exist.'
         type = 'alert'
         return render_template('forgetpass.html', m = message, t = type)
-    return render_template('resetpass.html', m = message, t = type, q = question)
+    return render_template('resetpass.html', m = message, t = type, q = session['question'])
+
+@app.route('/resetauth', methods = ['POST'])
+def resetauth():
+    if user.checkAnswer(session['usr'], request.args['answer']):
+        if request.form['password0'] == request.form['password1']:
+            user.resetPassword(session['usr'], request.form['password0'])
+            session['message'] = 'Your password is successfully reset.'
+            session.pop['usr']
+            session.pop['question']
+            return redirect('/')
+        else:
+            message = 'Passwords do not match.'
+            type = 'alert'
+    else:
+        message = 'Invalid Answer'
+        type = 'alert'
+    return render_template('resetpass.html', m = message, t = type, q = session['question'])
 
 if __name__ == "__main__":
     app.debug = True
