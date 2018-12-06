@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}
+    PASSWORD RESET
+{% endblock %}
+
+{% block content %}
+<br><br><br>
+<h1 align="center"> PASSWORD RESET PAGE </h1>
+<div class="grid-x grid-padding-x">
+  <div class="small-2 cell"></div>
+  <div class="large-8 cell">
+    <hr>
+    {% if m != '' %}
+    <div class="{{t}} callout">
+      <h4 style="text-align: center;">{{m}}</h4>
+    </div>
+    <hr>
+    {% endif %}
+    <div class="warning callout">
+      <div class="grid-x grid-padding-x">
+        <div class="medium-8 cell">
+          <div class="primary callout">
+            <form action = "/resetpass" method = "POST">
+              <p>Please enter your username.</p>
+              <input type = "text" name = "username" placeholder="Username">
+              <button type="submit" class="button" name="sub">Submit</button>
+            </form>
+          </div>
+        </div>
+
+        <div class="small-4 cell">
+          <h4>Already have an account?</h4>
+          <h4>Login <a href="/login">here</a>!</h4>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="small-2 cell"></div>
+</div>
+{% endblock %}

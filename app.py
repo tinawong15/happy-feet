@@ -288,6 +288,22 @@ def weather(lo):
     
     return render_template('weather.html', m = message, k = keyword, t = type,  q = quote[0], c = quote[1], fd = forecast_dict, ct = ct, at = at, ds = ds, fds = fds, fdt = fdt, fdat = fdat, fdpc = fdpc, fdpt = fdpt)
 
+@app.route('/forgetpass')
+def forgetpass():
+    return render_template('forgetpass.html', m = '')
+
+@app.route('/resetpass', methods=['POST'])
+def resetpass():
+    usr = request.form['username']
+    question = user.getQuestion(usr)
+    message = ''
+    type = ''
+    if question == -1:
+        message = 'Username does not exist.'
+        type = 'alert'
+        return render_template('forgetpass.html', m = message, t = type)
+    return render_template('resetpass.html', m = message, t = type, q = question)
+
 if __name__ == "__main__":
     app.debug = True
     app.run()
