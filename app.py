@@ -42,8 +42,8 @@ def home():
     while (i < len(articles)):
         dictionary[articles[i]] = links[i]
         i += 1
-    #for debugging
-    #print(dictionary)
+        #for debugging
+        #print(dictionary)
 
     quote = fortune.getQuote()
     # if 'searchLoc' in request.args and request.args['searchLoc'] != '':
@@ -104,10 +104,10 @@ def home():
         try:
             if l == 'ERROR':
                 forecast_dict[l] = 'Invalid location! No results found!'
-            coordinates = location.get_coordinates(l)
-            datum = forecast.get_json( coordinates[0], coordinates[1] )
-            forecast_dict[l] = forecast.get_daily_summary(datum)
-            forecast_dict['name'] = location.get_name(l)
+                coordinates = location.get_coordinates(l)
+                datum = forecast.get_json( coordinates[0], coordinates[1] )
+                forecast_dict[l] = forecast.get_daily_summary(datum)
+                forecast_dict['name'] = location.get_name(l)
         except:
             forecast_dict[l] = "API ERROR for the DARK SKY API\nEither the API key is invalid or you put in an invalid location" 
 
@@ -117,8 +117,10 @@ def home():
         data = { 'No results found! Try again' : '/' }
 
     if 'username' in session:
+        print(forecast_dict)
         return render_template('home.html', m = message, k = keyword, t = type, q = quote[0], c = quote[1], d = data, li = True, u = session['username'], s = session['stats'], fd = forecast_dict, loc = forecast_dict['name'])
     else:
+        print(forecast_dict)
         return render_template('home.html', m = message, k = keyword, t = type, q = quote[0], c = quote[1], d = data, li = False, fd = forecast_dict)
 
 @app.route('/signup')
@@ -203,21 +205,95 @@ def settings():
             for tag in request.args:
                 if tag != 'rmTag':
                     user.removeTag(session['username'], tag)
-            message = 'Tags are successfully removed.'
-            type = 'success'
+                    message = 'Tags are successfully removed.'
+                    type = 'success'
 
         if 'rmLoc' in request.args:
             # request.args.pop('rmLoc')
             for loc in request.args:
                 if loc != 'rmLoc':
                     user.removeLoc(session['username'], loc)
-            message = 'Locations are successfully removed.'
-            type = 'success'
-        session['stats'] = user.getStats(session['username'])
+                    message = 'Locations are successfully removed.'
+                    type = 'success'
+                    session['stats'] = user.getStats(session['username'])
         return render_template("settings.html", li = True, m = message, t = type, s = session['stats'])
     else:
         flash("You must be logged in to see that page.")
         return redirect(url_for('login'))
+
+@app.route("/forecast/<location>", methods = ['GET', 'POST'])
+def forecast(location):
+    keyword =  request.args.get('search', '')
+    if 'message' in session:
+        message = session['message']
+        type = 'success'
+        session.pop('message')
+    else:
+        message = ''
+        type = ''
+
+    if keyword != '':
+        message = 'New Search Keyword: '
+        type = 'success'
+    quote = fortune.getQuote()
+        
+    if 'username' in session:
+        if 'newTag' in request.args:
+            if request.args['newTag'] == '':
+                message = 'Tag cannot be empty.'
+                type = 'alert'
+            else:
+                if not user.addTag(session['username'], request.args['newTag']):
+                    message = 'Error: Tag already exists.'
+                    type = 'alert'
+
+        if 'newLoc' in request.args:
+            if request.args['newLoc'] == '':
+                message = 'Location cannot be empty.'
+                type = 'alert'
+            else:
+                if not user.addLoc(session['username'], request.args['newLoc']):
+                    message = 'Error: Location already exists.'
+                    type = 'alert'
+
+        session['stats'] = user.getStats(session['username'])
+
+    forecast_dict = {}
+    loc = []
+
+    if 'searchLoc' in request.args and request.args['searchLoc'] != '':
+        loc.append(request.args['searchLoc'])
+
+    elif 'username' not in session:
+        loc.append('New York')
+    elif session['stats']['locations'] == []:
+        loc.append('ERROR')
+
+        #coordinates = location.get_coordinates(loc)
+        #datum = forecast.get_json( coordinates[0], coordinates[1] )
+        #forecast_dict[loc] = forecast.get_daily_summary(datum)
+    else:
+        for l in session['stats']['locations']:
+            loc.append(l)
+            # print('[' + loc + ']')
+
+    #for each location in the user's database, loop thru and get info for it
+    #if there are any errors, prints such
+    for l in loc:
+        try:
+            if l == 'ERROR':
+                forecast_dict[l] = 'Invalid location! No results found!'
+                coordinates = location.get_coordinates(l)
+                datum = forecast.get_json( coordinates[0], coordinates[1] )
+                forecast_dict[l] = forecast.get_daily_summary(datum)
+                forecast_dict['name'] = location.get_name(l)
+        except:
+            forecast_dict[l] = "API ERROR for the DARK SKY API\nEither the API key is invalid or you put in an invalid location" 
+   
+    if 'username' in session:
+        return render_template('forecast.html', m = message, k = keyword, t = type, q = quote[0], c = quote[1], li = True, u = session['username'], s = session['stats'], l = session['location'], daily_summary = forecast.get_daily_summary(forecast_data))
+    else:
+        return render_template('forecast.html', m = message, k = keyword, t = type, q = quote[0], c = quote[1], li = False, l = session['location'], daily_summary = forecast.get_daily_summary(forecast_data))
 
 if __name__ == "__main__":
     app.debug = True
