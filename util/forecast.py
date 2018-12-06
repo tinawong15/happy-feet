@@ -79,13 +79,21 @@ def get_future_daily_summary(data, days):
     '''This function gets future daily weather summary for 7 days'''
     return data['daily']['data'][days]['summary']
 
-def get_future_daily_temp(data, days):
-    '''This function gets future daily temperature for up to 7 days'''
-    return data['daily']['data'][days]['temperature']
+def get_future_daily_temp_high(data, days):
+    '''This function gets future daily high temperature for up to 7 days'''
+    return data['daily']['data'][days]['temperatureHigh']
 
-def get_future_daily_apparent_temp(data, days):
+def get_future_daily_temp_low(data, days):
+    '''This function gets future daily low temperature for up to 7 days'''
+    return data['daily']['data'][days]['temperatureLow']
+
+def get_future_daily_apparent_temp_high(data, days):
     '''This function gets future daily apparent temperature for up to 7 days'''
-    return data['daily']['data'][days]['apparentTemperature']
+    return data['daily']['data'][days]['apparentTemperatureHigh']
+
+def get_future_daily_apparent_temp_low(data, days):
+    '''This function gets future daily low apparent temperature for up to 7 days'''
+    return data['daily']['data'][days]['apparentTemperatureLow']
 
 def get_future_daily_icon(data, days):
     '''This function gets the future daily icon for up to 7 days'''
@@ -112,33 +120,32 @@ def get_future_daily_sunset(data, days):
     return data['daily']['data'][days]['sunsetTime']
 
 
-#print(get_temp(42.3601,-71.0589))
-#print(get_minutely_summary(42.3601,-71.0589))
-#print(get_daily_summary(42.3601,-71.0589))
-#print(get_hourly_summary(42.3601,-71.0589))
-#print(get_future_summary(42.3601,-71.0589, 1))
-#print(get_future_summary(42.3601,-71.0589, 2))
-#print(get_future_summary(42.3601,-71.0589, 3))
+#json_raw = get_json( 42.3601,-71.0589 )
+'''
+print(get_future_hourly_summary(json_raw, 1))
+print(get_future_hourly_summary(json_raw, 2))
+print(get_future_hourly_summary(json_raw, 3))
+print(get_future_hourly_summary(json_raw, 4))
+print(get_future_hourly_summary(json_raw, 5))
+print(get_future_hourly_summary(json_raw, 6))
+print(get_future_hourly_summary(json_raw, 7))
+
+print(get_future_daily_summary(json_raw, 1))
+print(get_future_daily_summary(json_raw, 2))
+print(get_future_daily_summary(json_raw, 3))
+print(get_future_daily_summary(json_raw, 4))
+print(get_future_daily_summary(json_raw, 5))
+print(get_future_daily_summary(json_raw, 6))
+print(get_future_daily_summary(json_raw, 7))
+
+print(get_future_daily_temp_high(json_raw, 1))
+print(get_future_daily_temp_high(json_raw, 2))
+print(get_future_daily_temp_high(json_raw, 3))
+print(get_future_daily_temp_high(json_raw, 4))
+print(get_future_daily_temp_high(json_raw, 5))
+print(get_future_daily_temp_high(json_raw, 6))
 
 '''
-print(get_future_hourly_summary(42.3601,-71.0589, 1))
-print(get_future_hourly_summary(42.3601,-71.0589, 2))
-print(get_future_hourly_summary(42.3601,-71.0589, 3))
-print(get_future_hourly_summary(42.3601,-71.0589, 4))
-print(get_future_hourly_summary(42.3601,-71.0589, 5))
-print(get_future_hourly_summary(42.3601,-71.0589, 6))
-print(get_future_hourly_summary(42.3601,-71.0589, 7))
-
-print(get_future_daily_summary(42.3601,-71.0589, 1))
-print(get_future_daily_summary(42.3601,-71.0589, 2))
-print(get_future_daily_summary(42.3601,-71.0589, 3))
-print(get_future_daily_summary(42.3601,-71.0589, 4))
-print(get_future_daily_summary(42.3601,-71.0589, 5))
-print(get_future_daily_summary(42.3601,-71.0589, 6))
-print(get_future_daily_summary(42.3601,-71.0589, 7))
-print(get_future_daily_summary(42.3601,-71.0589, 8))
-'''
-
 '''
 testing implimentation of location.py
 works as intended!
