@@ -284,8 +284,10 @@ def weather(lo):
         fdpc.append(forecast.get_future_daily_percipitation_chance(data, i))
         fdpt.append(forecast.get_future_daily_percipitation_type(data, i))
     '''
-
-    return render_template('weather.html', lo = lo, m = message, k = keyword, t = type,  fd = forecast_dict, ct = ct, at = at, ds = ds, fds = fds, fdt = fdt, fdat = fdat, fdpc = fdpc, fdpt = fdpt)
+    if 'username' in session:
+        return render_template('weather.html', li=True, lo = lo, m = message, k = keyword, t = type,  fd = forecast_dict, ct = ct, at = at, ds = ds, fds = fds, fdt = fdt, fdat = fdat, fdpc = fdpc, fdpt = fdpt)
+    else:
+        return render_template('weather.html', li=False, lo = lo, m = message, k = keyword, t = type,  fd = forecast_dict, ct = ct, at = at, ds = ds, fds = fds, fdt = fdt, fdat = fdat, fdpc = fdpc, fdpt = fdpt)
 
 @app.route('/forgetpass')
 def forgetpass():
