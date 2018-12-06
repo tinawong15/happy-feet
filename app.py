@@ -259,11 +259,10 @@ def weather(lo):
         coordinates = location.get_coordinates(l)
         datum = forecast.get_json( coordinates[0], coordinates[1] )
         forecast_dict[l] = forecast.get_daily_summary(datum)
-    print(lo)
+
     coor = location.get_coordinates(lo)
-    print(coor)
     data = forecast.get_json( coor[0], coor[1] )
-    print(data)
+
     ds = forecast.get_daily_summary(data)
     ct = forecast.get_temp(data)
     at = forecast.get_apparent_temp(data)
@@ -309,8 +308,8 @@ def resetauth():
         if request.form['password0'] == request.form['password1']:
             user.resetPassword(session['usr'], request.form['password0'])
             session['message'] = 'Your password is successfully reset.'
-            session.pop['usr']
-            session.pop['question']
+            session.pop('usr')
+            session.pop('question')
             return redirect('/')
         else:
             message = 'Passwords do not match.'
