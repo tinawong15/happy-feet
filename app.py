@@ -311,8 +311,8 @@ def resetauth():
         if request.form['password0'] == request.form['password1']:
             user.resetPassword(session['usr'], request.form['password0'])
             session['message'] = 'Your password is successfully reset.'
-            session.pop['usr']
-            session.pop['question']
+            session.pop('usr')
+            session.pop('question')
             return redirect('/')
         else:
             message = 'Passwords do not match.'
