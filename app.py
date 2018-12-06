@@ -302,7 +302,7 @@ def resetpass():
 
 @app.route('/resetauth', methods = ['POST'])
 def resetauth():
-    if user.checkAnswer(session['usr'], request.args['answer']):
+    if user.checkAnswer(session['usr'], request.form['answer']):
         if request.form['password0'] == request.form['password1']:
             user.resetPassword(session['usr'], request.form['password0'])
             session['message'] = 'Your password is successfully reset.'
