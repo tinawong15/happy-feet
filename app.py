@@ -234,7 +234,7 @@ def weather(lo):
     if keyword != '':
         message = 'New Search Keyword: '
         type = 'success'
-    
+
     forecast_dict = {}
     loc = []
 
@@ -285,8 +285,8 @@ def weather(lo):
         fdpc.append(forecast.get_future_daily_percipitation_chance(data, i))
         fdpt.append(forecast.get_future_daily_percipitation_type(data, i))
     '''
-    
-    return render_template('weather.html', m = message, k = keyword, t = type,  q = quote[0], c = quote[1], fd = forecast_dict, ct = ct, at = at, ds = ds, fds = fds, fdt = fdt, fdat = fdat, fdpc = fdpc, fdpt = fdpt)
+
+    return render_template('weather.html', lo = lo, m = message, k = keyword, t = type,  q = quote[0], c = quote[1], fd = forecast_dict, ct = ct, at = at, ds = ds, fds = fds, fdt = fdt, fdat = fdat, fdpc = fdpc, fdpt = fdpt)
 
 @app.route('/forgetpass')
 def forgetpass():

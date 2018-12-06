@@ -201,3 +201,6 @@ rubinP -- 2018-12-05 13:16
 tinaW -- 2018-12-05 13:24
 - Added check to ensure that user cannot enter empty tags or locations
 - Added all docstrings
+
+tinaW -- 2018-12-06 09:43
+- Fixed issues with weather page
