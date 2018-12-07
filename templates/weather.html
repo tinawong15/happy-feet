@@ -31,77 +31,41 @@ Weather For {{lo}}
 	    <br>
 	    It feels like: {{at}}&#8457;
 	  </div>
-	  <div class="primary callout">
-              <h3>Future Predictions</h3>
-	    <div class="grid-x grid-padding-x">
-	      <div class="small-2 medium-2 large-2">
-          <h5>Day 1</h5>
-		{{fds[0]}}
-		<br>
-		{{fdpc[0]}} chance for {{fdpt[0]}}
-		<br>
-		Temperature high: {{fdt[0]}}&#8457;
-		<br>
-		Temperature low: {{fdat[0]}}&#8457;
-	      </div>
+    <hr>
+    <h3>Future Predictions</h3>
+    <table role="grid">
+      <thead>
+        {% for i in range(6) %}
+        <th>Day {{i + 1}}</th>
+        {% endfor %}
+      </thead>
 
-	      <div class="small-2 medium-2 large-2">
-          <h5>Day 2</h5>
-		{{fds[1]}}
-		<br>
-		{{fdpc[1]}} chance for {{fdpt[1]}}
-		<br>
-		Temperature high: {{fdt[1]}}&#8457;
-		<br>
-		Temperature low: {{fdt[1]}}&#8457;
-	      </div>
+      <tbody>
+        <tr>
+          {% for i in range(6) %}
+          <td>{{fds[i]}}</td>
+          {% endfor %}
+        </tr>
 
-	      <div class="small-2 medium-2 large-2">
-          <h5>Day 3</h5>
-		{{fds[2]}}
-		<br>
-		{{fdpc[2]}} chance for {{fdpt[2]}}
-		<br>
-	   Temperature high: {{fdt[2]}}&#8457;
-		<br>
-		Temperature low: {{fdt[2]}}&#8457;
-	      </div>
+        <tr>
+          {% for i in range(6) %}
+          <td>{{fdpc[i]}} chance for {{fdpt[i]}}</td>
+          {% endfor %}
+        </tr>
 
-	      <div class="small-2 medium-2 large-2">
-          <h5>Day 4</h5>
-		{{fds[3]}}
-		<br>
-		{{fdpc[3]}} chance for {{fdpt[3]}}
-		<br>
-		Temperature high: {{fdt[3]}}&#8457;
-		<br>
-		Temperature low: {{fdt[3]}}&#8457;
-	      </div>
+        <tr>
+          {% for i in range(6) %}
+          <td>Temperature high: {{fdt[i]}}&#8457;</td>
+          {% endfor %}
+        </tr>
 
-	      <div class="small-2 medium-2 large-2">
-          <h5>Day 5</h5>
-		{{fds[4]}}
-		<br>
-		{{fdpc[4]}} chance for {{fdpt[4]}}
-		<br>
-		Temperature high: {{fdt[4]}}&#8457;
-		<br>
-	   Temperature low: {{fdt[4]}}&#8457;
-	      </div>
-
-	      <div class="small-2 medium-2 large-2">
-          <h5>Day 6</h5>
-		{{fds[5]}}
-		<br>
-		{{fdpc[5]}} chance for {{fdpt[5]}}
-		<br>
-		Temperature high: {{fdt[5]}}&#8457;
-		<br>
-		Temperature low: {{fdt[5]}}&#8457;
-	      </div>
-
-	    </div>
-	  </div>
+        <tr>
+          {% for i in range(6) %}
+          <td>Temperature low: {{fdat[0]}}&#8457;</td>
+          {% endfor %}
+        </tr>
+      </tbody>
+    </table>
 	</div>
 
 
