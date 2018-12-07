@@ -228,6 +228,7 @@ rubinP -- 2018-12-06 13:40
 tinaW -- 2018-12-06 14:24
 - Fixed navbar login on weather page
 - Future weather now shows up except precipitation type
+- Updated display of weather page
 
 williamL -- 2018-12-06 20:40
 - Made a table for weather page: more aesthetically pleasing
@@ -239,3 +240,6 @@ rubinP -- 2018-12-06 23:12
 - Fixed some bugs in forecast.py regarding precipitation
 - Remove unecessary print statements
 - UwU
+
+tinaW -- 2018-12-06 23:36
+- Fixed bug with weather page
