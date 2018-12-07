@@ -36,6 +36,7 @@ BUGS, WHY, AND HOW
 	- Database entries and files are all screwed up
 	- FIX: will remove and rebuild the database prior to launch date
 
+- Serbia still exists
 --------------------------------------------------------------
 
 williamL, vincentL, rubinP, tinaW -- 2018-11-19 12:57
