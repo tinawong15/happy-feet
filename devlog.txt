@@ -243,3 +243,6 @@ rubinP -- 2018-12-06 23:12
 
 tinaW -- 2018-12-06 23:36
 - Fixed bug with weather page
+- Added try catch for Dark Sky API errors
+- Removed extra code from weather() in app
+- Added docstrings

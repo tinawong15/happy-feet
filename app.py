@@ -100,16 +100,15 @@ def home():
     #for each location in the user's database, loop thru and get info for it
     #if there are any errors, prints such
     for l in loc:
-        # try:
+        try:
         #     if l == 'ERROR':
         #         forecast_dict[l] = 'Invalid location! No results found!'
-        coordinates = location.get_coordinates(l)
-        datum = forecast.get_json( coordinates[0], coordinates[1] )
-        forecast_dict[l] = forecast.get_daily_summary(datum)
+            coordinates = location.get_coordinates(l)
+            datum = forecast.get_json( coordinates[0], coordinates[1] )
+            forecast_dict[l] = forecast.get_daily_summary(datum)
         # forecast_dict['name'] = location.get_name(l)
-        # except:
-        #     forecast_dict[l] = "API ERROR for the DARK SKY API\nEither the API key is invalid or you put in an invalid location"
-
+        except:
+            forecast_dict[l] = "API ERROR for the DARK SKY API\nEither the API key is invalid or you put in an invalid location"
     if dictionary:
         data = dictionary
     else:
@@ -236,7 +235,6 @@ def settings():
 
 @app.route("/weather/<lo>", methods = ['GET', 'POST'])
 def weather(lo):
-    keyword =  request.args.get('search', '')
     if 'message' in session:
         message = session['message']
         type = 'success'
@@ -244,10 +242,6 @@ def weather(lo):
     else:
         message = ''
         type = ''
-
-    if keyword != '':
-        message = 'New Search Keyword: '
-        type = 'success'
 
     forecast_dict = {}
     loc = []
@@ -266,43 +260,49 @@ def weather(lo):
 
     #for each location in the user's database, loop thru and get info for it
     #if there are any errors, prints such
-    for l in loc:
-        coordinates = location.get_coordinates(l)
-        datum = forecast.get_json( coordinates[0], coordinates[1] )
-        forecast_dict[l] = forecast.get_daily_summary(datum)
+    try:
+        for l in loc:
+            coordinates = location.get_coordinates(l)
+            datum = forecast.get_json( coordinates[0], coordinates[1] )
+            forecast_dict[l] = forecast.get_daily_summary(datum)
 
-    coor = location.get_coordinates(lo)
-    data = forecast.get_json( coor[0], coor[1] )
+        coor = location.get_coordinates(lo)
+        data = forecast.get_json( coor[0], coor[1] )
 
-    ds = forecast.get_daily_summary(data)
-    ct = forecast.get_temp(data)
-    at = forecast.get_apparent_temp(data)
+        ds = forecast.get_daily_summary(data)
+        ct = forecast.get_temp(data)
+        at = forecast.get_apparent_temp(data)
 
-    fds = []
-    fdt = []
-    fdat = []
-    fdpc = []
-    fdpt = []
-    i = 1
-    while(i < 8):
-        fds.append(forecast.get_future_daily_summary(data, i))
-        fdt.append(forecast.get_future_daily_temp_high(data, i))
-        fdat.append(forecast.get_future_daily_temp_low(data, i))
-        fdpc.append(forecast.get_future_daily_precipitation_chance(data, i))
-        fdpt.append(forecast.get_future_daily_precipitation_type(data, i))
-        i += 1
+        fds = []
+        fdt = []
+        fdat = []
+        fdpc = []
+        fdpt = []
+        i = 1
+        while(i < 8):
+            fds.append(forecast.get_future_daily_summary(data, i))
+            fdt.append(forecast.get_future_daily_temp_high(data, i))
+            fdat.append(forecast.get_future_daily_temp_low(data, i))
+            fdpc.append(forecast.get_future_daily_precipitation_chance(data, i))
+            fdpt.append(forecast.get_future_daily_precipitation_type(data, i))
+            i += 1
+    except:
+        flash("API ERROR for the DARK SKY API. Either the API key is invalid or you put in an invalid location.")
+        return redirect('/')
 
     if 'username' in session:
-        return render_template('weather.html', li=True, lo = lo, m = message, k = keyword, t = type,  fd = forecast_dict, ct = ct, at = at, ds = ds, fds = fds, fdt = fdt, fdat = fdat, fdpc = fdpc, fdpt = fdpt)
+        return render_template('weather.html', li=True, lo = lo, m = message, t = type,  fd = forecast_dict, ct = ct, at = at, ds = ds, fds = fds, fdt = fdt, fdat = fdat, fdpc = fdpc, fdpt = fdpt)
     else:
-        return render_template('weather.html', li=False, lo = lo, m = message, k = keyword, t = type,  fd = forecast_dict, ct = ct, at = at, ds = ds, fds = fds, fdt = fdt, fdat = fdat, fdpc = fdpc, fdpt = fdpt)
+        return render_template('weather.html', li=False, lo = lo, m = message, t = type,  fd = forecast_dict, ct = ct, at = at, ds = ds, fds = fds, fdt = fdt, fdat = fdat, fdpc = fdpc, fdpt = fdpt)
 
 @app.route('/forgetpass')
 def forgetpass():
+    '''This function renders the template for the forget password form.'''
     return render_template('forgetpass.html', m = '')
 
 @app.route('/resetpass', methods = ['POST'])
 def resetpass():
+    '''This function resets the password by requesting the user's security question and answer.'''
     session['username'] = request.form['username']
     session['stats'] = user.getStats(session['username'])
     # session['question'] = user.getQuestion(session['usr'])
@@ -318,6 +318,7 @@ def resetpass():
 
 @app.route('/resetauth', methods = ['POST'])
 def resetauth():
+    '''This function uses the user's responses in the form to reset the password.'''
     if session['stats']['answer'] == request.form['answer']:
         if len( request.form['password0'] ) < 5:
             message = 'Password is too short. Please try again.'

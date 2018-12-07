@@ -19,7 +19,14 @@ Home
       </div>
       <hr>
       {% endif %}
-
+      {% set msgs = get_flashed_messages() %}
+        {% for each in msgs %}
+  			<div class="alert callout">
+  	      <h4 style="text-align: center;">{{ each }}</h4>
+  	    </div>
+  	    <hr>
+        <br>
+        {% endfor %}
       <div class="grid-x grid-padding-x">
 
 	<div class="small-3 medium-3 cell">
