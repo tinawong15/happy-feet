@@ -230,3 +230,6 @@ tinaW -- 2018-12-06 14:24
 
 williamL -- 2018-12-06 20:40
 - Made a table for weather page: more aesthetically pleasing
+
+williamL -- 2018-12-06 22:50
+- Fixed countless bugs

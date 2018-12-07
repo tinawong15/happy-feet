@@ -21,10 +21,11 @@ Settings
     <hr>
     {% endif %}
     <div class="warning callout">
-      <h4>Password Change: Please enter at least 5 characters.</h4>
       <form action = "/settings" method = "POST">
         <input type = "password" name = "oldPass" placeholder="Original Password">
-        <input type = "password" name = "newPass" placeholder="New Password">
+        <h4>Password Change: Please enter at least 5 characters.</h4>
+        <input type = "password" name = "newPass0" placeholder="New Password">
+        <input type = "password" name = "newPass1" placeholder="Verify Password">
         <button type="submit" class="button" name="sub">Submit</button>
       </form>
       <div class="grid-x grid-padding-x">
