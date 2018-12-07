@@ -9,8 +9,8 @@ def createTable():
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
     c.execute("CREATE TABLE IF NOT EXISTS users (user TEXT, password TEXT, question TEXT, answer TEXT)")
-    c.execute("CREATE TABLE IF NOT EXISTS tags (user TEXT, tag TEXT)")
-    c.execute("CREATE TABLE IF NOT EXISTS cities (user TEXT, city TEXT)")
+    # c.execute("CREATE TABLE IF NOT EXISTS tags (user TEXT, tag TEXT)")
+    # c.execute("CREATE TABLE IF NOT EXISTS cities (user TEXT, city TEXT)")
     db.commit()
     db.close()
 
@@ -157,5 +157,6 @@ def getStats(usr):
             d['locations'] = getLocations(usr)
             db.close()
             return d
+    return -1
 
-#createTable()
+createTable()

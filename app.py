@@ -133,24 +133,35 @@ def signupauth():
     usern = request.form['username']
     pswd0 = request.form['password0']
     pswd1 = request.form['password1']
+    q = request.form['question']
+    a = request.form['answer']
 
     hasMsg = True
     type = 'alert'
     message = ''
+    fail = True
+
+    numbers = '0123456789'
 
     if len(usern) < 5:
-        message = "You have entered an invalid username. Please try again."
-        return render_template('signup.html', m = message, t = type)
+        message = "Username is too short. Please try again."
     elif len(pswd0) < 5:
-        message = "You have entered an invalid password. Please try again."
-        return render_template('signup.html', m = message, t = type)
+        message = "Password is too short. Please try again."
     elif pswd0 != pswd1:
         message = "Passwords do not match. Please try again."
-        return render_template('signup.html', m = message, t = type)
+    elif q == '':
+        message = "Please don't leave the question blank."
+    elif a == '':
+        message = "Please don't leave the answer blank."
+    elif numbers.find(usern[: 1]) != -1:
+        message = "The first character of username must be a letter."
     else:
         user.register(usern, pswd0, request.form['question'], request.form['answer'])
         session['message'] = 'You have successfully signed up.'
-        return redirect('/')
+        fail = False
+    if fail:
+        return render_template('signup.html', m = message, t = type)
+    return redirect('/')
 
 @app.route('/login')
 def login():
@@ -188,11 +199,14 @@ def settings():
     if 'username' in session:
         if 'oldPass' in request.form:
             if user.authenticate(session['username'], request.form['oldPass']):
-                if len(request.form['newPass']) < 5:
+                if len(request.form['newPass0']) < 5:
                     message = 'New password is too short.'
                     type = 'alert'
+                elif request.form['newPass0'] != request.form['newPass1']:
+                    message = 'New passwords do not match.'
+                    type = 'alert'
                 else:
-                    user.resetPassword(session['username'], request.form['newPass'])
+                    user.resetPassword(session['username'], request.form['newPass0'])
                     message = 'Your have successfully reset your password'
                     type = 'success'
             else:
@@ -214,7 +228,7 @@ def settings():
                     user.removeLoc(session['username'], loc)
                     message = 'Locations are successfully removed.'
                     type = 'success'
-                    session['stats'] = user.getStats(session['username'])
+        session['stats'] = user.getStats(session['username'])
         return render_template("settings.html", li = True, m = message, t = type, s = session['stats'])
     else:
         flash("You must be logged in to see that page.")
@@ -292,24 +306,30 @@ def forgetpass():
 
 @app.route('/resetpass', methods = ['POST'])
 def resetpass():
-    session['usr'] = request.form['username']
-    session['question'] = user.getQuestion(session['usr'])
+    session['username'] = request.form['username']
+    session['stats'] = user.getStats(session['username'])
+    # session['question'] = user.getQuestion(session['usr'])
     message = ''
     type = ''
-    if session['question'] == -1:
+    if session['stats'] == -1:
         message = 'Username does not exist.'
         type = 'alert'
+        session.pop('username')
+        session.pop('stats')
         return render_template('forgetpass.html', m = message, t = type)
-    return render_template('resetpass.html', m = message, t = type, q = session['question'])
+    return render_template('resetpass.html', m = message, t = type, q = session['stats']['question'])
 
 @app.route('/resetauth', methods = ['POST'])
 def resetauth():
-    if user.checkAnswer(session['usr'], request.form['answer']):
+    if session['stats']['answer'] == request.form['answer']:
+        if len( request.form['password0'] ) < 5:
+            message = 'Password is too short. Please try again.'
+            type = 'alert'
         if request.form['password0'] == request.form['password1']:
-            user.resetPassword(session['usr'], request.form['password0'])
+            user.resetPassword(session['username'], request.form['password0'])
             session['message'] = 'Your password is successfully reset.'
-            session.pop('usr')
-            session.pop('question')
+            session.pop('username')
+            session.pop('stats')
             return redirect('/')
         else:
             message = 'Passwords do not match.'
@@ -317,7 +337,7 @@ def resetauth():
     else:
         message = 'Invalid Answer'
         type = 'alert'
-    return render_template('resetpass.html', m = message, t = type, q = session['question'])
+    return render_template('resetpass.html', m = message, t = type, q = session['stats']['question'])
 
 if __name__ == "__main__":
     app.debug = True
