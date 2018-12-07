@@ -234,3 +234,8 @@ williamL -- 2018-12-06 20:40
 
 williamL -- 2018-12-06 22:50
 - Fixed countless bugs
+
+rubinP -- 2018-12-06 23:12
+- Fixed some bugs in forecast.py regarding precipitation
+- Remove unecessary print statements
+- UwU

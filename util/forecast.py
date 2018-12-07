@@ -64,11 +64,14 @@ def get_future_hourly_icon(data, hours):
 
 def get_future_hourly_preciptiation_chance(data, hours):
     '''This function gets future precipitation chance on an hour-by-hour basis'''
-    return data['hourly']['data'][hours]['precipProbability'] * 100
+    return (data['hourly']['data'][hours]['precipProbability']) * 100
 
 def get_future_hourly_precipitation_type(data, hours):
     '''This function gets future precipitation type on an hour-by-hour basis'''
-    return data['hourly']['data'][hours]['precipType']
+    try:
+        return data['hourly']['data'][hours]['precipType']
+    except:
+        return 'any precipitation'
 
 def get_future_hourly_UV_index(data, hours):
     '''This function gets future UV index on an hour-by-hour basis'''
@@ -101,11 +104,14 @@ def get_future_daily_icon(data, days):
 
 def get_future_daily_precipitation_chance(data, days):
     '''This function gets the future daily precipitation chance for up to 7 days'''
-    return data['daily']['data'][days]['precipProbability']
+    return (data['daily']['data'][days]['precipProbability']) * 100
 
 def get_future_daily_precipitation_type(data, days):
     '''This function gets the future daily precipitation type for up to 7 days'''
-    return data['daily']['data'][days]['precipType']
+    try:
+        return data['daily']['data'][days]['precipType']
+    except:
+        return 'any precipitation'
 
 def get_future_daily_UV_index(data, days):
     '''This function gets the future daily UV type for up to 7 days'''
@@ -121,6 +127,14 @@ def get_future_daily_sunset(data, days):
 
 
 #json_raw = get_json( 42.3601,-71.0589 )
+'''
+print(get_future_daily_precipitation_type(json_raw, 1))
+print(get_future_daily_precipitation_type(json_raw, 2))
+print(get_future_daily_precipitation_type(json_raw, 3))
+print(get_future_daily_precipitation_type(json_raw, 4))
+print(get_future_daily_precipitation_type(json_raw, 5))
+print(get_future_daily_precipitation_type(json_raw, 6))
+'''
 '''
 print(get_future_hourly_summary(json_raw, 1))
 print(get_future_hourly_summary(json_raw, 2))

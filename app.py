@@ -1,4 +1,4 @@
-import os
+itmport os
 
 from flask import Flask, render_template, request, session, redirect, url_for, flash
 
@@ -116,10 +116,10 @@ def home():
         data = { 'No results found! Try again' : '/' }
 
     if 'username' in session:
-        print(forecast_dict)
+        #print(forecast_dict)
         return render_template('home.html', m = message, k = keyword, t = type, q = quote[0], c = quote[1], d = data, li = True, u = session['username'], s = session['stats'], fd = forecast_dict)
     else:
-        print(forecast_dict)
+        #print(forecast_dict)
         return render_template('home.html', m = message, k = keyword, t = type, q = quote[0], c = quote[1], d = data, li = False, fd = forecast_dict)
 
 @app.route('/signup')
@@ -292,7 +292,7 @@ def weather(lo):
         fdt.append(forecast.get_future_daily_temp_high(data, i))
         fdat.append(forecast.get_future_daily_temp_low(data, i))
         fdpc.append(forecast.get_future_daily_precipitation_chance(data, i))
-        # fdpt.append(forecast.get_future_daily_precipitation_type(data, i))
+        fdpt.append(forecast.get_future_daily_precipitation_type(data, i))
         i += 1
 
     if 'username' in session:

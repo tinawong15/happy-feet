@@ -159,4 +159,4 @@ def getStats(usr):
             return d
     return -1
 
-createTable()
+#createTable()
